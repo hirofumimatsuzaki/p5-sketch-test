@@ -3,8 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <title>家具データカスタマイザー（p5.js + DXFダウンロード）</title>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="sketch.js" defer></script>
+    <style>
+        /* カスタムスタイル */
+        :root {
+            --canvas-bg: #e5e7eb; /* gray-200 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        #furniture-sketch {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: block;
+        }
+        .control-group {
+            @apply flex flex-col space-y-1;
+        }
+        input[type="number"] {
+            @apply w-20 px-2 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm;
+        }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">📐 ShopBot用 カスタム家具データ生成</h1>
+  </body>
 </html>
