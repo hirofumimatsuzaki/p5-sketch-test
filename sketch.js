@@ -7,18 +7,28 @@ const CANVAS_SIZE = 1200;
 
 let p5Instance; // p5.jsのインスタンス
 
+// デフォルトのパラメータ設定 (HTMLに入力欄がない場合に使用)
+const DEFAULTS = {
+    type: 'chair',
+    d: 10,
+    s: 80,
+    s2: 0,
+    s3: 0,
+    s5: 0,
+    sc: 10,
+    yp5: 100
+};
+
 // DXFファイル生成用ユーティリティ
 function createDxfTemplate(entities_data) {
-    // DXFファイルの基本的な構造を返す（LINEエンティティを含む）
     const header = `0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1012\n0\nENDSEC`;
-    const tables = `0\nSECTION\n2\nTABLES\n0\nENDSEC`; // 最小限
+    const tables = `0\nSECTION\n2\nTABLES\n0\nENDSEC`;
     const entities = `0\nSECTION\n2\nENTITIES\n${entities_data}\n0\nENDSEC`;
     const eof = `0\nEOF`;
     return `${header}\n${tables}\n${entities}\n${eof}`;
 }
 
 function createLineEntity(x1, y1, x2, y2) {
-    // グループコードと座標値でLINEエンティティを生成
     return `
 0
 LINE
@@ -36,46 +46,39 @@ ${y2}
 }
 
 // ====================================================================
-// カスタム椅子のパス計算用ユーティリティ (元のp5.jsロジックから移植)
+// パラメータ取得ヘルパー (HTML要素がなくてもエラーにならないようにする)
+// ====================================================================
+function getParam(id, defaultValue) {
+    const el = document.getElementById(id);
+    if (el) {
+        return isNaN(parseFloat(el.value)) ? el.value : parseFloat(el.value);
+    }
+    return defaultValue;
+}
+
+// ====================================================================
+// カスタム椅子のパス計算用ユーティリティ
 // ====================================================================
 
-/**
- * 2点を通る直線上の、指定されたY座標に対応するX座標を計算する。
- */
 function calculateX(xp, yp, xp2, yp2, yp3) {
-    if (xp2 === xp) return xp; // 垂直線の場合
+    if (xp2 === xp) return xp;
     let m = (yp2 - yp) / (xp2 - xp);
-    if (m === 0) return xp; // 水平線の場合
-    // y = m(x - xp) + yp  =>  x = (y - yp) / m + xp
+    if (m === 0) return xp;
     let x = (yp3 - yp) / m + xp;
     return x;
 }
 
-/**
- * 2点間の垂直な方向へのオフセットを計算する
- */
 function calculateOffset(x1, y1, x2, y2, d) {
+    if (!p5Instance) return { offsetX: 0, offsetY: 0 };
     const dx = x2 - x1;
     const dy = y2 - y1;
     const length = p5Instance.dist(x1, y1, x2, y2);
     if (length === 0) return { offsetX: 0, offsetY: 0 };
-    
     const perpDx = -dy / length;
     const perpDy = dx / length;
-    
-    return {
-        offsetX: perpDx * d,
-        offsetY: perpDy * d
-    };
+    return { offsetX: perpDx * d, offsetY: perpDy * d };
 }
 
-// ====================================================================
-// 部品パス生成関数 (元のp5.jsの `function sokumen(x, y)` などから移植)
-// 座標は (0, 0) 基準のローカル座標で返す
-// ====================================================================
-
-// パスを座標の配列として抽出するユーティリティ
-// [x1, y1, x2, y2, x3, y3, ...]
 function pathExtractor(pathPoints) {
     const points = [];
     for (let i = 0; i < pathPoints.length; i += 2) {
@@ -84,31 +87,27 @@ function pathExtractor(pathPoints) {
     return points;
 }
 
+// ====================================================================
+// 部品パス生成関数
+// ====================================================================
+
 /** 側面パネルのパスを生成 (Side_Panel_Complex) */
 function getSokumenPath(p, calc) {
-    // パスの基準点を (0, 0) に合わせるためのオフセット
     const x_base = 30;
     const y_base = 200;
-    
-    // Y座標のローカル基準点（最も低い点）を設定
-    // sokumenの最低点は y=200-d
     const y_min = y_base - p.d; 
     
-    // 元のp5.jsの頂点計算をローカル座標に変換
-    // x - x_base, y - y_min (y_minを0とする)
     const path = [
         calc.xp6 - x_base, calc.yp6 - y_min,
         calc.xp7 + p.s2 - x_base, calc.yp7 - y_min,
         calc.xp7 + p.s2 - x_base, calc.yp7 - calc.offsetY2 - y_min,
         calc.newX3 + p.d - 10 - x_base, calc.newY3 - y_min,
-        
         calc.resultX + p.s2 - x_base, calc.yp3 - y_min,
         calc.resultX + calc.offsetX + p.s2 - x_base, calc.yp3 + calc.offsetY - y_min,
         calc.resultX2 + calc.offsetX + p.s2 - x_base, calc.yp4 + calc.offsetY - y_min,
         calc.resultX2 + p.s2 - x_base, calc.yp4 - y_min,
         calc.resultX3 + p.s2 - x_base, calc.yp5 - y_min,
         calc.newX2 + p.s2 - x_base, calc.newY2 - y_min,
-        
         (x_base + 170 + p.s2) - x_base, (y_base + 50) - y_min,
         (x_base + 170 + p.s2 - p.d) - x_base, (y_base + 50) - y_min,
         (x_base + 170 + p.s2 - p.d) - x_base, (y_base + 100 + p.s3) - y_min,
@@ -136,7 +135,6 @@ function getSokumenPath(p, calc) {
 function getUePath(p) {
     const x_base = 250;
     const y_base = 100;
-
     const outerPath = [
         (x_base + p.d) - x_base, y_base - y_base,
         (x_base + 40 + p.s - p.d) - x_base, y_base - y_base,
@@ -148,7 +146,6 @@ function getUePath(p) {
         (x_base + p.d) - x_base, (y_base + 40) - y_base,
         (x_base + p.d) - x_base, y_base - y_base,
     ];
-
     const slotPath = [
         (x_base + 20) - x_base, (y_base + 170 + p.s2 - p.d + p.d) - y_base,
         (x_base + 40 + p.s - 20) - x_base, (y_base + 170 + p.s2 - p.d + p.d) - y_base,
@@ -156,8 +153,6 @@ function getUePath(p) {
         (x_base + 20) - x_base, (y_base + 170 + p.s2 + p.d) - y_base,
         (x_base + 20) - x_base, (y_base + 170 + p.s2 - p.d + p.d) - y_base,
     ];
-
-    // 外部パスと内部スロットパスを両方含む配列を返す
     return [pathExtractor(outerPath), pathExtractor(slotPath)];
 }
 
@@ -165,7 +160,6 @@ function getUePath(p) {
 function getSemotarePath(p, calc) {
     const x_base = 500;
     const y_base = 100;
-    
     const path = [
         x_base - x_base, y_base - y_base,
         (x_base + 40 + p.s) - x_base, y_base - y_base,
@@ -188,8 +182,7 @@ function getSemotarePath(p, calc) {
 function getMaePath(p) {
     const x_base = 800;
     const y_base = 100;
-    const y_base_offset = y_base + 10 - p.d - p.s3; // Y=0 の基準
-
+    const y_base_offset = y_base + 10 - p.d - p.s3; 
     const path = [
         x_base - x_base, (y_base + 10 - p.d - p.s3) - y_base_offset,
         (x_base + p.s) - x_base, (y_base + 10 - p.d - p.s3) - y_base_offset,
@@ -225,7 +218,6 @@ function getUshiroPath(p) {
     const x_base = 780;
     const y_base = 300;
     const y_base_offset = y_base + 30 - p.s3;
-
     const path = [
         (x_base + p.d) - x_base, (y_base + 30 - p.s3) - y_base_offset,
         (x_base + p.s + 40 - p.d) - x_base, (y_base + 30 - p.s3) - y_base_offset,
@@ -256,20 +248,6 @@ function getUshiroPath(p) {
 function getAshiPath(p) {
     const d = p.d;
     const s5 = p.s5;
-    
-    // 元のロジック (ashi(300, 50)) を完全に再現
-    const x_base = 300;
-    const y_base = 50;
-    
-    // 元のvertex定義（絶対座標）
-    // vertex(x-d-20+(d+45-s5)/2, y); -> y=50
-    // vertex(x+15, y);
-    // ...
-    
-    // これを (0, 0) からの相対座標に変換
-    // 基準となる点は (x_base, y_base) ではなく、形状の左下などを(0,0)にするのが望ましいが、
-    // ここではシンプルに (x_base, y_base) を (0, 0) として計算する
-    
     const path = [
         (-d - 20 + (d + 45 - s5) / 2), 0,
         15, 0,
@@ -294,6 +272,9 @@ function getFurnitureParts(type, customParams) {
     const p = customParams;
     const parts = [];
     
+    // パラメータが正しく渡ってきているか確認
+    // console.log("Current Params:", p);
+
     const x1 = 140;
     const y1 = 200 - p.d;
     const x2 = 190;
@@ -331,8 +312,13 @@ function getFurnitureParts(type, customParams) {
     calc.newX3 = calc.resultX4 + p.s2 - calc.offsetX;
     calc.newY3 = calc.yp8 + p.s2 / 60 - calc.offsetY2;
     
-    calc.length2 = p5Instance.dist(calc.resultX + p.s2, calc.yp3, calc.resultX2 + p.s2, calc.yp4);
-    calc.length4 = p5Instance.dist(calc.resultX2 + p.s2, calc.yp4, calc.resultX3 + p.s2, calc.yp5);
+    if (p5Instance) {
+        calc.length2 = p5Instance.dist(calc.resultX + p.s2, calc.yp3, calc.resultX2 + p.s2, calc.yp4);
+        calc.length4 = p5Instance.dist(calc.resultX2 + p.s2, calc.yp4, calc.resultX3 + p.s2, calc.yp5);
+    } else {
+        calc.length2 = 0;
+        calc.length4 = 0;
+    }
 
     switch (type) {
         case 'chair':
@@ -371,7 +357,6 @@ function getFurnitureParts(type, customParams) {
             break;
 
         case 'desk':
-            // 簡易
             const desk_w = 1200 * p.sc / 100;
             const desk_h = 750 * p.sc / 100;
             parts.push({ name: "Desk_Top", paths: [pathExtractor([0,0, desk_w,0, desk_w,desk_h*0.5, 0,desk_h*0.5, 0,0])], width: desk_w, height: desk_h*0.5 });
@@ -401,26 +386,36 @@ const sketch = (s) => {
     const CANVAS_H = CANVAS_SIZE;
 
     s.setup = () => {
+        p5Instance = s; // インスタンスを確保
         s.createCanvas(CANVAS_W, CANVAS_H);
         s.noLoop();
         
-        document.querySelectorAll('#controls input, #controls select').forEach(el => {
-            el.addEventListener('input', () => s.redraw());
-        });
-        document.getElementById('download-button').addEventListener('click', generateAndDownloadDxf);
+        // HTML要素が存在する場合のみイベントリスナーを設定
+        const controls = document.querySelectorAll('#controls input, #controls select');
+        if (controls.length > 0) {
+            controls.forEach(el => {
+                el.addEventListener('input', () => s.redraw());
+            });
+        }
+        
+        const dlBtn = document.getElementById('download-button');
+        if (dlBtn) {
+            dlBtn.addEventListener('click', generateAndDownloadDxf);
+        }
     };
 
     s.draw = () => {
         s.background(s.color('var(--canvas-bg)'));
 
-        const currentType = document.getElementById('furniture_type').value;
-        const d = parseFloat(document.getElementById('material_thickness').value) || 10;
-        const s_val = parseFloat(document.getElementById('s').value) || 80;
-        const s2 = parseFloat(document.getElementById('s2').value) || 0;
-        const s3 = parseFloat(document.getElementById('s3').value) || 0;
-        const s5 = parseFloat(document.getElementById('s5').value) || 0;
-        const sc = parseFloat(document.getElementById('sc').value) || 10;
-        const yp5 = parseFloat(document.getElementById('yp5').value) || 100;
+        // パラメータ取得 (HTML要素がない場合はデフォルト値を使用)
+        const currentType = getParam('furniture_type', DEFAULTS.type);
+        const d = getParam('material_thickness', DEFAULTS.d);
+        const s_val = getParam('s', DEFAULTS.s);
+        const s2 = getParam('s2', DEFAULTS.s2);
+        const s3 = getParam('s3', DEFAULTS.s3);
+        const s5 = getParam('s5', DEFAULTS.s5);
+        const sc = getParam('sc', DEFAULTS.sc);
+        const yp5 = getParam('yp5', DEFAULTS.yp5);
 
         const scale_factor = sc / 10;
         const padding = 50;
@@ -437,12 +432,9 @@ const sketch = (s) => {
             });
         });
 
-        // 描画開始位置 (上から下に描画するためのY反転ロジック用オフセット)
-        // Y=0 が上。最も高いパーツの高さを確保して下にずらす。
         const y_offset = max_height * scale_factor + padding;
         
         s.push();
-        // X軸も負の座標を持つパーツのためにオフセット
         s.translate(padding + d * scale_factor, y_offset);
         s.scale(scale_factor);
 
@@ -454,7 +446,6 @@ const sketch = (s) => {
             s.fill(50);
             s.noStroke();
             s.textSize(20 / scale_factor);
-            // 文字はパーツの上に表示
             s.text(part.name, current_x, -(max_height + 10));
 
             s.stroke(50);
@@ -466,9 +457,6 @@ const sketch = (s) => {
                 else { s.fill(s.color(220)); s.stroke(50); }
 
                 path.forEach(([x, y]) => {
-                    // 重要な修正: Y軸を反転 (max_height - y) して、
-                    // ローカル座標系で「下から上」の形状を「上から下」のキャンバス座標に変換
-                    // さらに -max_height して原点を合わせる
                     s.vertex(x + current_x, -y);
                 });
                 s.endShape(s.CLOSE);
@@ -478,9 +466,13 @@ const sketch = (s) => {
         });
         
         s.pop();
-    };
 
-    p5Instance = s;
+        s.fill(0);
+        s.noStroke();
+        s.textSize(16);
+        s.textAlign(s.LEFT, s.BOTTOM);
+        s.text(`Type: ${currentType}, d: ${d}mm, s: ${s_val}mm, scale: ${scale_factor}`, 20, CANVAS_H - 20);
+    };
 };
 
 new p5(sketch, 'furniture-sketch');
@@ -491,28 +483,27 @@ new p5(sketch, 'furniture-sketch');
 // ====================================================================
 
 function generateAndDownloadDxf() {
-    const currentType = document.getElementById('furniture_type').value;
-    const d = parseFloat(document.getElementById('material_thickness').value) || 10;
-    const s_val = parseFloat(document.getElementById('s').value) || 80;
-    const s2 = parseFloat(document.getElementById('s2').value) || 0;
-    const s3 = parseFloat(document.getElementById('s3').value) || 0;
-    const s5 = parseFloat(document.getElementById('s5').value) || 0;
-    const sc = parseFloat(document.getElementById('sc').value) || 10;
-    const yp5 = parseFloat(document.getElementById('yp5').value) || 100;
+    const currentType = getParam('furniture_type', DEFAULTS.type);
+    const d = getParam('material_thickness', DEFAULTS.d);
+    const s_val = getParam('s', DEFAULTS.s);
+    const s2 = getParam('s2', DEFAULTS.s2);
+    const s3 = getParam('s3', DEFAULTS.s3);
+    const s5 = getParam('s5', DEFAULTS.s5);
+    const sc = getParam('sc', DEFAULTS.sc);
+    const yp5 = getParam('yp5', DEFAULTS.yp5);
 
-    const customParams = { d: d, s: s_val, s2: s2, s3: s3, s5: s5, sc: 10, yp5: yp5 }; // DXFは等倍(mm)
+    const customParams = { d: d, s: s_val, s2: s2, s3: s3, s5: s5, sc: 10, yp5: yp5 };
     const parts = getFurnitureParts(currentType, customParams);
     
     let entities_data = '';
     let current_x = 0;
-    const dxf_offset_x = d; // 負のX座標対策
+    const dxf_offset_x = d;
 
     parts.forEach(part => {
         part.paths.forEach(path => {
             for (let i = 0; i < path.length; i++) {
                 const p1 = path[i];
                 const p2 = path[(i + 1) % path.length];
-                // DXFはmm単位。スケールは適用しない(sc=10として計算済み)
                 const x1 = p1[0] + current_x + dxf_offset_x;
                 const y1 = p1[1];
                 const x2 = p2[0] + current_x + dxf_offset_x;
