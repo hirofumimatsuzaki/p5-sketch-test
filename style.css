@@ -1,0 +1,45 @@
+/* 基本的なリセット */
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* 2カラムレイアウトのコンテナ */
+.container {
+    display: flex; /* Flexboxを有効にする */
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto; /* ページ中央に配置 */
+    border: 1px solid #ccc;
+}
+
+/* カラムの共通スタイル */
+.column {
+    padding: 20px;
+    box-sizing: border-box; /* paddingとborderをwidthに含める */
+}
+
+/* 左側のカラム: 幅を固定 (例: 300px) */
+.left-column {
+    width: 300px;
+    background-color: #f0f0f0;
+}
+
+/* 右側のカラム: 残りの幅をすべて使用 */
+.right-column {
+    flex-grow: 1; /* 残りのスペースを埋める */
+    background-color: #ffffff;
+    /* p5.jsのキャンバスを中央に寄せたい場合などに追加: */
+    display: flex;
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+}
+
+/* p5.jsキャンバス (自動生成されるcanvasタグ) のスタイル調整 */
+/* スケッチの幅がコンテナの幅を超えないようにするための保険 */
+canvas {
+    display: block; /* canvasのインライン要素による下部の隙間をなくす */
+    max-width: 100%;
+    height: auto;
+    border: 1px dashed #0056b3; /* 見やすいように枠線を追加 */
+}
