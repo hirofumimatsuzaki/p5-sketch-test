@@ -8,12 +8,108 @@
     
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-
+    
+    <style>
+        /* カスタムスタイル */
+        :root {
+            --canvas-bg: #e5e7eb; /* gray-200 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        #furniture-sketch {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: block;
+        }
+        .control-group {
+            @apply flex flex-col space-y-1;
+        }
+        input[type="number"] {
+            @apply w-20 px-2 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm;
+        }
+    </style>
   </head>
   <body>
     <main>
+           <h1>📐 ShopBot用 カスタム家具データ生成</h1>
+            <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">📐 ShopBot用 カスタム家具データ生成</h1>
+
+        <div class="flex flex-col lg:flex-row gap-6">
+
+            <!-- コントロールパネル -->
+            <div id="controls" class="lg:w-1/3 bg-white p-6 rounded-xl shadow-lg h-full">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">寸法・設定の調整</h2>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="control-group">
+                        <label for="furniture_type" class="text-sm font-medium text-gray-700">家具の種類</label>
+                        <select id="furniture_type" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+                            <option value="chair">椅子 (カスタム)</option>
+                            <option value="desk">机 (簡略)</option>
+                            <option value="shelf">棚 (簡略)</option>
+                            <option value="house">小屋 (簡略)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="material_thickness" class="text-sm font-medium text-gray-700">材料の厚み (d)</label>
+                        <input type="number" id="material_thickness" value="10" min="1" max="50">
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-4">
+                    <h3 class="text-base font-medium mb-3 text-gray-700">椅子のカスタムパラメータ</h3>
+                    <!-- 元のp5.jsのスライダーに対応するカスタム入力 -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="control-group">
+                            <label for="s" class="text-sm font-medium text-gray-700">座面横幅 (s)</label>
+                            <input type="number" id="s" value="80" min="50" max="180">
+                        </div>
+                        <div class="control-group">
+                            <label for="s2" class="text-sm font-medium text-gray-700">側面横幅調整 (s2)</label>
+                            <input type="number" id="s2" value="0" min="-50" max="50">
+                        </div>
+                        <div class="control-group">
+                            <label for="s3" class="text-sm font-medium text-gray-700">足長さ調整 (s3)</label>
+                            <input type="number" id="s3" value="0" min="-50" max="50">
+                        </div>
+                        <div class="control-group">
+                            <label for="s5" class="text-sm font-medium text-gray-700">足細さ調整 (s5)</label>
+                            <input type="number" id="s5" value="0" min="-40" max="25">
+                        </div>
+                        <div class="control-group">
+                            <label for="sc" class="text-sm font-medium text-gray-700">サイズ調整 (sc)</label>
+                            <input type="number" id="sc" value="10" min="-100" max="100">
+                        </div>
+                        <div class="control-group">
+                            <label for="yp5" class="text-sm font-medium text-gray-700">背もたれ長さ (yp5)</label>
+                            <input type="number" id="yp5" value="100" min="50" max="130">
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="download-button" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-150">
+                    DXFデータ ダウンロード
+                </button>
+            </div>
+
+            <!-- 描画エリア -->
+            <div class="lg:w-2/3">
+                <div id="furniture-sketch" class="w-full">
+                    <!-- p5.js canvas will be placed here -->
+                </div>
+                <div class="mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md text-sm">
+                    展開図は、各部品の切削パスを板材上に並べたものです。寸法調整 (sc) が描画スケールに反映されます。
+                </div>
+            </div>
+
+        </div>
+    </div>
     </main>
-    <h1>📐 ShopBot用 カスタム家具データ生成</h1>
+ 
     <script src="sketch.js"></script>
   </body>
 </html>
