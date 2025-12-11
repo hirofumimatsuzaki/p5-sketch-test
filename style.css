@@ -6,17 +6,25 @@ body {
 
 /* 2カラムレイアウトのコンテナ */
 .container {
-    display: flex; /* Flexboxを有効にする */
+    display: flex;
+    /* [変更点 1] 画面の高さいっぱいにコンテナを広げ、上下マージンを引く */
+    height: calc(100vh - 40px);
     width: 90%;
     max-width: 1200px;
-    margin: 20px auto; /* ページ中央に配置 */
+    margin: 20px auto;
     border: 1px solid #ccc;
+    /* [変更点 1] オーバーフローを隠す */
+    overflow: hidden; 
 }
 
 /* カラムの共通スタイル */
 .column {
     padding: 20px;
-    box-sizing: border-box; /* paddingとborderをwidthに含める */
+    box-sizing: border-box;
+    /* [変更点 2] 親コンテナの高さ全体を占める */
+    height: 100%; 
+    /* [変更点 2] コンテンツが長すぎる場合は、そのカラム内でのみスクロール */
+    overflow-y: auto; 
 }
 
 /* 左側のカラム: 幅を固定 (例: 300px) */
@@ -27,19 +35,22 @@ body {
 
 /* 右側のカラム: 残りの幅をすべて使用 */
 .right-column {
-    flex-grow: 1; /* 残りのスペースを埋める */
+    flex-grow: 1;
     background-color: #ffffff;
-    /* p5.jsのキャンバスを中央に寄せたい場合などに追加: */
     display: flex;
-    justify-content: center; /* 水平方向の中央揃え */
-    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center;
+    align-items: center;
+    /* [変更点 3] 右側のカラムはオーバーフローを隠す (キャンバスがはみ出るのを防ぐ) */
+    overflow: hidden;
 }
 
 /* p5.jsキャンバス (自動生成されるcanvasタグ) のスタイル調整 */
-/* スケッチの幅がコンテナの幅を超えないようにするための保険 */
 canvas {
-    display: block; /* canvasのインライン要素による下部の隙間をなくす */
+    display: block;
+    /* [変更点 4] キャンバスが親の高さからはみ出さないようにする */
+    max-height: 100%;
     max-width: 100%;
     height: auto;
-    border: 1px dashed #0056b3; /* 見やすいように枠線を追加 */
+    width: auto; /* p5.jsの幅/高さ設定を尊重しつつ、max-width/max-heightで制限 */
+    border: 1px dashed #0056b3;
 }
