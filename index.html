@@ -10,13 +10,20 @@
     <div class="container">
 
         <div class="column left-column">
-            <h2>p5.js 2カラムデモ</h2>
-            <p>これは左側のカラムです。ここに説明文やナビゲーションなどを配置できます。</p>
-            <p>キャンバスは右側のカラムに表示されています。</p>
+            <h2>📐 ShopBot用 カスタム家具データ生成</h2>
+            <h2>寸法・設定の調整</h2>
+                <div class="control-group">
+                        <label for="furniture_type" class="text-sm font-medium text-gray-700">家具の種類</label>
+                        <select id="furniture_type" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+                            <option value="chair">椅子 (カスタム)</option>
+                            <option value="desk">机 (簡略)</option>
+                            <option value="shelf">棚 (簡略)</option>
+                            <option value="house">小屋 (簡略)</option>
+                        </select>
+                    </div>
         </div>
 
         <div class="column right-column" id="canvas-container">
-            <p>キャンバスは右側</p>
             </div>
         
     </div>
