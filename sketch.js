@@ -7,20 +7,27 @@ function setup() {
     let canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     
     // 2. 作成したキャンバスを右側のカラムの要素にアタッチする
-    // IDは index.html で定義した "canvas-container"
     canvas.parent('canvas-container'); 
-    
-    background(220); // 背景色を設定
 }
 
 function draw() {
-    // 描画コード
-    fill(255, 0, 0); // 赤色
-    ellipse(mouseX, mouseY, 50, 50); // マウスの位置に円を描画
-}
+    background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
 
-// ウィンドウサイズが変更されたときにコンテナに合わせてキャンバスを再センタリングしたい場合は、
-// このような関数を追加することもあります。
-// function windowResized() {
-//     // (ここではレイアウトがFlexboxで対応済みのため省略可能)
-// }
+    // --- HTMLのスライダーから値を取得 ---
+    // id="s" のスライダー要素を取得
+    let sliderS = document.getElementById('s');
+    // スライダーの現在の値（文字列）を数値に変換
+    let sValue = parseFloat(sliderS.value);
+
+    // --- 数値表示の更新 ---
+    // id="display_s" のスパンに現在の値を表示
+    document.getElementById('display_s').innerText = sValue + " mm";
+
+    // --- 描画に反映 ---
+    fill(255, 0, 0); // 赤色
+    noStroke();
+    
+    // スライダーの値(sValue)を円の直径として使用
+    // マウス位置を中心に描画
+    ellipse(width / 2, height / 2, sValue, sValue); 
+}
