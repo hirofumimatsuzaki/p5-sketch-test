@@ -2,13 +2,13 @@
 const CANVAS_WIDTH = 2000;
 const CANVAS_HEIGHT = 700;
 
-let d=10;
-let s=80;
-let s2=0;
-let s3=0;
-let s4=0;
-let s5=0;
-let sc=0;
+let d;
+let s;
+let s2;
+let s3;
+let s4;
+let s5;
+let sc;
 let offsetX;
 let offsetY;
 let offsetX2;
