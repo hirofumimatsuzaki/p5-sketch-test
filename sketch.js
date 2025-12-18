@@ -159,36 +159,6 @@ function draw() {
   text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 30);
   
   scale(sc/10);
-
-  fill(255);
-  
-  stroke(0);
-  strokeWeight(1);
-  
-  if(mx2!=null){
-  line(mx,my,mx2,my2);  
-     length6=dist(mx,my,mx2,my2);
-
-  }
   
 }
-
-function mousePressed(){
-    count++;
-    if(count>2){
-      count=0;
-      mx=null;
-      my=null;
-      mx2=null;
-      my2=null;
-    }
-    if(count==1){
-      mx=mouseX;
-      my=mouseY;
-    }
-    if(count==2){
-      mx2=mouseX;
-      my2=mouseY;
-    }
-  }
   
