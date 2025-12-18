@@ -1,6 +1,6 @@
 // キャンバスのサイズを定義
-const CANVAS_WIDTH = 400;
-const CANVAS_HEIGHT = 400;
+const CANVAS_WIDTH = 2000;
+const CANVAS_HEIGHT = 700;
 
 let d=10;
 let s=80;
@@ -76,7 +76,7 @@ function draw() {
 
     let sliderSC = document.getElementById('sc');
     let scValue = parseFloat(sliderSC.value);
-    document.getElementById('display_sc').innerText = scValue + " mm";
+    document.getElementById('display_sc').innerText = scValue + " 倍";
 
     let sliderYP5 = document.getElementById('yp5');
     let yp5Value = parseFloat(sliderYP5.value);
@@ -84,15 +84,346 @@ function draw() {
 
 
     // --- 描画に反映 ---
-    fill(255, 0, 0); // 赤色
-    noStroke();
+    strokeWeight(0.1); // do 0.1 for laser
+  stroke(255, 0, 0); // red is good for laser
+  noFill(); // better not to have a fill for laser
     
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
-    ellipse(width / 2, height / 2, sValue, sValue); 
-    ellipse(20, 20, s2Value, s2Value); 
-    ellipse(40, 40, s3Value, s3Value); 
-    ellipse(60, 60, s5Value, s5Value); 
-    ellipse(80, 80, scValue, scValue); 
-    ellipse(100, 100, yp5Value, yp5Value); 
+    //ellipse(width / 2, height / 2, sValue, sValue); 
+    
+    resultX = calculateX(x1, y1, x2, y2, yp3);
+  resultX2 = calculateX(x1, y1, x2, y2, yp4);
+  resultX3 = calculateX(x1, y1, x2, y2, yp5);
+  resultX4 = calculateX(xp6, yp6, xp7, yp7, yp8);
+  
+  // 元の線の傾きを計算
+  let dx = x2 - x1;
+  let dy = y2 - y1;
+
+  // 元の線に垂直な方向の単位ベクトルを計算
+  let length = dist(x1, y1, x2, y2); // 元の線の長さ
+  let perpDx = -dy / length; // 垂直な方向のx成分
+  let perpDy = dx / length; // 垂直な方向のy成分
+
+  // 移動する距離
+  let distance = d; // 30ピクセル垂直方向に移動
+
+  // 平行移動する分を計算
+   offsetX = perpDx * distance;
+   offsetY = perpDy * distance;
+  
+  // 平行移動後の新しい点を計算
+   newX1 = x1 + offsetX;
+   newY1 = y1 + offsetY;
+  newX2 = resultX3 + offsetX;
+   newY2 = yp5 + offsetY;
+  newX3 = resultX4+s2-offsetX;
+   newY3 = yp8+s2/60-offsetY2;//
+   //let newX2 = resultX3 + offsetX;
+  //let newY2 = yp5 + offsetY;
+  
+  length2=dist(resultX+s2,yp3,resultX2+s2, yp4);
+  length4=dist(resultX2+s2, yp4,resultX3+s2,yp5);
+  length5=dist(xp6,yp6,xp7+s2,yp7);
+
+  
+  let dx2 = x4 - x3;
+  let dy2 = y4 - y3;
+
+  // 元の線に垂直な方向の単位ベクトルを計算
+  let length3 = dist(x3, y3, x4, y4); // 元の線の長さ
+  let perpDx2 = -dy2 / length3; // 垂直な方向のx成分
+  let perpDy2 = dx2 / length3; // 垂直な方向のy成分
+
+  // 移動する距離
+  let distance2 = d; // 30ピクセル垂直方向に移動
+
+  // 平行移動する分を計算
+   offsetX2 = perpDx2 * distance2;
+   offsetY2 = perpDy2 * distance2;
+  //console.log(length2);
+
+  /*rect(resultX, yp3, 5, 5);
+  rect(resultX + offsetX, yp3 + offsetY, 5, 5);
+  rect(resultX2, yp4, 5, 5);
+  rect(resultX2 + offsetX, yp4 + offsetY, 5, 5);*/
+  
+  //console.log(length2);
+  //fill(0);
+  noStroke();
+  let angle = atan2(y2 - y1, x2 - x1);
+  let angleDegrees = degrees(angle);
+  
+  let theta = degrees(angle);
+  text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 30);
+
+  scale(sc/10);
+
+  fill(255);
+  
+  sokumen(30,200);
+  ue(250,100);
+  semotare(500,100);
+  mae(800,100);
+  //ushiro(1100,100);
+  ushiro(780,300);
+  ashi(300,50);
+  //ashi2(400,50);
+  //ashi3(500,50);
+  //ashi2(35,345);
+  stroke(0);
+  strokeWeight(1);
+  
+  if(mx2!=null){
+  line(mx,my,mx2,my2);  
+     length6=dist(mx,my,mx2,my2);
+
+  }
 }
+
+function mousePressed(){
+    count++;
+    if(count>2){
+      count=0;
+      mx=null;
+      my=null;
+      mx2=null;
+      my2=null;
+    }
+    if(count==1){
+      mx=mouseX;
+      my=mouseY;
+    }
+    if(count==2){
+      mx2=mouseX;
+      my2=mouseY;
+    }
+  }
+  
+  function sokumen(x,y){
+    beginShape();
+    vertex(xp6,yp6);
+    vertex(xp7+s2,yp7);
+    vertex(xp7+s2,yp7-offsetY2);
+    vertex(newX3+d-10,newY3);
+    vertex(resultX+s2,yp3);
+    vertex(resultX + offsetX+s2, yp3 + offsetY);
+    vertex(resultX2 + offsetX+s2, yp4 + offsetY);
+    vertex(resultX2+s2, yp4);
+    vertex(resultX3+s2,yp5);
+    vertex(newX2+s2,newY2);
+    vertex(x+170+s2,y+50);
+    vertex(x+170+s2-d,y+50);
+    vertex(x+170+s2-d,y+100+s3);
+    vertex(x+170+s2,y+100+s3);
+    vertex(x+170+s2,y+120+s3+d);
+    vertex(x+155+s2,y+120+s3+d);
+    vertex(x+155+s2,y+120+s3);
+    vertex(x+140+s2,y+120+s3);
+    vertex(x+120+s5+s2,y+50);
+    vertex(x+45-s5,y+50);
+    vertex(x+(d+45-s5)/2,y+120+s3);
+    vertex(x+10,y+120+s3);
+    vertex(x+10,y+120+s3+d);
+    vertex(x,y+120+s3+d);
+    vertex(x,y+100+s3);
+    vertex(x-d,y+100+s3);
+    vertex(x-d,y+50);
+    vertex(x,y+50);
+    vertex(x,y);
+    endShape();
+  }
+  function ue(x,y){
+    beginShape();
+    vertex(x+d,y);
+    vertex(x+40+s-d,y);
+    vertex(x+40+s-d,y+40);
+    vertex(x+40+s,y+40);
+    vertex(x+40+s,y+180+d+s2);
+    vertex(x,y+180+d+s2);
+    vertex(x,y+40);
+    vertex(x+d,y+40);
+    vertex(x+d,y);
+    endShape();
+    
+    stroke(0);
+    
+    beginShape();
+    vertex(x+20,y+170+s2-d+d);
+    vertex(x+40+s-20,y+170+s2-d+d);
+    vertex(x+40+s-20,y+170+s2+d);
+    vertex(x+20,y+170+s2+d);
+    vertex(x+20,y+170+s2-d+d);
+    endShape();
+    
+    noStroke();
+  }
+  function semotare(x,y){
+    beginShape();
+    vertex(x,y);
+    vertex(x+40+s,y);
+    vertex(x+40+s,y+20);
+    vertex(x+40+s-d,y+20);
+    vertex(x+40+s-d,y+20+length4);
+    vertex(x+40+s,y+20+length4);
+    vertex(x+40+s,y+20+length4+length2);
+    vertex(x,y+20+length4+length2);
+    vertex(x,y+20+length4);
+    vertex(x+d,y+20+length4);
+    vertex(x+d,y+20);
+    vertex(x,y+20);
+    vertex(x,y);
+    endShape();
+  }
+  function mae(x,y){
+    beginShape();
+    vertex(x,y+10-d-s3);
+    vertex(x+s,y+10-d-s3);
+    vertex(x+s,y+10-s3);
+    vertex(x+s+20,y+10-s3);
+    vertex(x+s+20,y+60-s3);
+    vertex(x+s+20-d,y+60-s3);
+    vertex(x+s+20-d,y+110);
+    vertex(x+s+20,y+110);
+    vertex(x+s+20,y+130+d);
+    vertex(x+s+5,y+130+d);
+    vertex(x+s+5,y+130);
+    vertex(x+s-10,y+130);
+    vertex(x+s-20+s5/2,y+60-s3);
+    vertex(x+20-s5/2,y+60-s3);
+    vertex(x+10,y+130);
+    vertex(x-5,y+130);
+    vertex(x-5,y+130+d);
+    vertex(x-20,y+130+d);
+    vertex(x-20,y+110);
+    vertex(x-20+d,y+110);
+    vertex(x-20+d,y+60-s3);
+    vertex(x-20,y+60-s3);
+    vertex(x-20,y+10-s3);
+    vertex(x,y+10-s3);
+    vertex(x,y+10-d-s3);
+    endShape();
+  }
+  function ushiro(x,y){
+    beginShape();
+    vertex(x+d,y+30-s3);
+    vertex(x+s+40-d,y+30-s3);
+    vertex(x+s+40-d,y+60-s3);
+    vertex(x+s+40,y+60-s3);
+    vertex(x+s+40,y+110);
+    vertex(x+s+40-d,y+110);
+    vertex(x+s+40-d,y+130+d);
+    vertex(x+s+20,y+130+d);
+    vertex(x+s+20,y+130);
+    vertex(x+s+5,y+130);
+    vertex(x+s+s5/2,y+60-s3);
+    vertex(x+40-s5/2,y+60-s3);
+    vertex(x+35,y+130);
+    vertex(x+20,y+130);
+    vertex(x+20,y+130+d);
+    vertex(x+d,y+130+d);
+    vertex(x+d,y+110);
+    vertex(x,y+110);
+    vertex(x,y+60-s3);
+    vertex(x+d,y+60-s3);
+    vertex(x+d,y+30-s3);
+    endShape();
+  }
+  function ashi(x,y){
+    beginShape();
+  /*vertex(x,y-15);
+    vertex(x+(d+45-s5)/2,y-15);
+    vertex(x+(d+45-s5)/2,y);
+    vertex(x+30,y);
+    vertex(x+30,y+15);
+    vertex(x+45,y+15);
+    vertex(x+45,y+30);
+    vertex(x+20,y+30);
+    vertex(x,y+15);
+    vertex(x,y-15);*/
+    
+    vertex(x-d-20+(d+45-s5)/2,y);
+    vertex(x+15,y);
+    //vertex(x+25+d,y);
+    vertex(x+25+d,y+10+d);
+    vertex(x+25+d,y+25+d);
+    vertex(x-10+(d+45-s5)/2,y+25+d);
+    vertex(x-10+(d+45-s5)/2,y+25+d-d);
+    vertex(x-20+(d+45-s5)/2,y+25+d-d);
+    vertex(x-20+(d+45-s5)/2,y+(d+45-s5)/4);
+    vertex(x-d-20+(d+45-s5)/2,y+(d+45-s5)/4);
+    vertex(x-d-20+(d+45-s5)/2,y);
+    
+    endShape();
+  }
+  /*function ashi2(x,y){
+    beginShape();
+    vertex(x,y-d);
+    vertex(x+15,y-d);
+    vertex(x+15,y);
+    vertex(x+30,y);
+    vertex(x+30,y+10);
+    vertex(x+30+d,y+10);
+    vertex(x+30+d,y+25);
+    vertex(x+20,y+25);
+    vertex(x,y+10);
+    vertex(x,y-d);
+  
+    endShape();
+  }
+  
+  function ashi3(x,y){
+    beginShape();
+    vertex(x,y-d);
+    vertex(x+15,y-d);
+    vertex(x+15,y);
+    vertex(x+25,y);
+    vertex(x+25,y+15);
+    vertex(x+25+d,y+15);
+    vertex(x+25+d,y+30);
+    vertex(x+20,y+30);
+    vertex(x,y+10);
+    vertex(x,y-d);
+  
+    endShape();
+  }*/
+  
+  function calculateX(xp, yp, xp2, yp2, yp3,xp6, yp6, xp7, yp7, yp8) {
+    // 傾きを計算
+    let m = (yp2 - yp) / (xp2 - xp);
+  
+    // 与えられた y に対する x の値を計算
+    let x = (yp3 - yp) / m + xp;
+  
+    return x
+    
+  }
+  
+  // 元の線の2つの点
+   x1 = 140;
+    y1 = 200-d;
+   x2 = 190;
+    y2 = 100;
+  x3 = 30;
+    y3 = 200;
+  x4 = 160+s2;
+    y4 = 200+d;
+  
+  // 使用例
+  let xp = x1;
+  let yp = y1;
+  let xp2 = x2;
+  let yp2 = y2;
+   yp3 = y1-20;
+   yp4 = y1-60;
+  yp5=100;
+  let xp6 = x3;
+  let yp6 = y3;
+  let xp7 = x4;
+  let yp7 = y4;
+  yp8=yp7-d/9;
+  resultX = calculateX(xp, yp, xp2, yp2, yp3);
+  resultX2 = calculateX(xp, yp, xp2, yp2, yp4);
+  resultX3 = calculateX(xp, yp, xp2, yp2, yp5);
+  resultX4 = calculateX(xp6, yp6, xp7, yp7, yp8);
