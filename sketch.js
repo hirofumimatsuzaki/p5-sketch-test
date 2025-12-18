@@ -90,7 +90,7 @@ function draw() {
     
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
-    //ellipse(width / 2, height / 2, sValue, sValue); 
+    ellipse(width / 2, height / 2, sValue, sValue); 
     
     resultX = calculateX(x1, y1, x2, y2, yp3);
   resultX2 = calculateX(x1, y1, x2, y2, yp4);
@@ -157,21 +157,11 @@ function draw() {
   
   let theta = degrees(angle);
   text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 30);
-
+  
   scale(sc/10);
 
   fill(255);
   
-  sokumen(30,200);
-  ue(250,100);
-  semotare(500,100);
-  mae(800,100);
-  //ushiro(1100,100);
-  ushiro(780,300);
-  ashi(300,50);
-  //ashi2(400,50);
-  //ashi3(500,50);
-  //ashi2(35,345);
   stroke(0);
   strokeWeight(1);
   
@@ -180,6 +170,7 @@ function draw() {
      length6=dist(mx,my,mx2,my2);
 
   }
+  
 }
 
 function mousePressed(){
@@ -201,229 +192,3 @@ function mousePressed(){
     }
   }
   
-  function sokumen(x,y){
-    beginShape();
-    vertex(xp6,yp6);
-    vertex(xp7+s2,yp7);
-    vertex(xp7+s2,yp7-offsetY2);
-    vertex(newX3+d-10,newY3);
-    vertex(resultX+s2,yp3);
-    vertex(resultX + offsetX+s2, yp3 + offsetY);
-    vertex(resultX2 + offsetX+s2, yp4 + offsetY);
-    vertex(resultX2+s2, yp4);
-    vertex(resultX3+s2,yp5);
-    vertex(newX2+s2,newY2);
-    vertex(x+170+s2,y+50);
-    vertex(x+170+s2-d,y+50);
-    vertex(x+170+s2-d,y+100+s3);
-    vertex(x+170+s2,y+100+s3);
-    vertex(x+170+s2,y+120+s3+d);
-    vertex(x+155+s2,y+120+s3+d);
-    vertex(x+155+s2,y+120+s3);
-    vertex(x+140+s2,y+120+s3);
-    vertex(x+120+s5+s2,y+50);
-    vertex(x+45-s5,y+50);
-    vertex(x+(d+45-s5)/2,y+120+s3);
-    vertex(x+10,y+120+s3);
-    vertex(x+10,y+120+s3+d);
-    vertex(x,y+120+s3+d);
-    vertex(x,y+100+s3);
-    vertex(x-d,y+100+s3);
-    vertex(x-d,y+50);
-    vertex(x,y+50);
-    vertex(x,y);
-    endShape();
-  }
-  function ue(x,y){
-    beginShape();
-    vertex(x+d,y);
-    vertex(x+40+s-d,y);
-    vertex(x+40+s-d,y+40);
-    vertex(x+40+s,y+40);
-    vertex(x+40+s,y+180+d+s2);
-    vertex(x,y+180+d+s2);
-    vertex(x,y+40);
-    vertex(x+d,y+40);
-    vertex(x+d,y);
-    endShape();
-    
-    stroke(0);
-    
-    beginShape();
-    vertex(x+20,y+170+s2-d+d);
-    vertex(x+40+s-20,y+170+s2-d+d);
-    vertex(x+40+s-20,y+170+s2+d);
-    vertex(x+20,y+170+s2+d);
-    vertex(x+20,y+170+s2-d+d);
-    endShape();
-    
-    noStroke();
-  }
-  function semotare(x,y){
-    beginShape();
-    vertex(x,y);
-    vertex(x+40+s,y);
-    vertex(x+40+s,y+20);
-    vertex(x+40+s-d,y+20);
-    vertex(x+40+s-d,y+20+length4);
-    vertex(x+40+s,y+20+length4);
-    vertex(x+40+s,y+20+length4+length2);
-    vertex(x,y+20+length4+length2);
-    vertex(x,y+20+length4);
-    vertex(x+d,y+20+length4);
-    vertex(x+d,y+20);
-    vertex(x,y+20);
-    vertex(x,y);
-    endShape();
-  }
-  function mae(x,y){
-    beginShape();
-    vertex(x,y+10-d-s3);
-    vertex(x+s,y+10-d-s3);
-    vertex(x+s,y+10-s3);
-    vertex(x+s+20,y+10-s3);
-    vertex(x+s+20,y+60-s3);
-    vertex(x+s+20-d,y+60-s3);
-    vertex(x+s+20-d,y+110);
-    vertex(x+s+20,y+110);
-    vertex(x+s+20,y+130+d);
-    vertex(x+s+5,y+130+d);
-    vertex(x+s+5,y+130);
-    vertex(x+s-10,y+130);
-    vertex(x+s-20+s5/2,y+60-s3);
-    vertex(x+20-s5/2,y+60-s3);
-    vertex(x+10,y+130);
-    vertex(x-5,y+130);
-    vertex(x-5,y+130+d);
-    vertex(x-20,y+130+d);
-    vertex(x-20,y+110);
-    vertex(x-20+d,y+110);
-    vertex(x-20+d,y+60-s3);
-    vertex(x-20,y+60-s3);
-    vertex(x-20,y+10-s3);
-    vertex(x,y+10-s3);
-    vertex(x,y+10-d-s3);
-    endShape();
-  }
-  function ushiro(x,y){
-    beginShape();
-    vertex(x+d,y+30-s3);
-    vertex(x+s+40-d,y+30-s3);
-    vertex(x+s+40-d,y+60-s3);
-    vertex(x+s+40,y+60-s3);
-    vertex(x+s+40,y+110);
-    vertex(x+s+40-d,y+110);
-    vertex(x+s+40-d,y+130+d);
-    vertex(x+s+20,y+130+d);
-    vertex(x+s+20,y+130);
-    vertex(x+s+5,y+130);
-    vertex(x+s+s5/2,y+60-s3);
-    vertex(x+40-s5/2,y+60-s3);
-    vertex(x+35,y+130);
-    vertex(x+20,y+130);
-    vertex(x+20,y+130+d);
-    vertex(x+d,y+130+d);
-    vertex(x+d,y+110);
-    vertex(x,y+110);
-    vertex(x,y+60-s3);
-    vertex(x+d,y+60-s3);
-    vertex(x+d,y+30-s3);
-    endShape();
-  }
-  function ashi(x,y){
-    beginShape();
-  /*vertex(x,y-15);
-    vertex(x+(d+45-s5)/2,y-15);
-    vertex(x+(d+45-s5)/2,y);
-    vertex(x+30,y);
-    vertex(x+30,y+15);
-    vertex(x+45,y+15);
-    vertex(x+45,y+30);
-    vertex(x+20,y+30);
-    vertex(x,y+15);
-    vertex(x,y-15);*/
-    
-    vertex(x-d-20+(d+45-s5)/2,y);
-    vertex(x+15,y);
-    //vertex(x+25+d,y);
-    vertex(x+25+d,y+10+d);
-    vertex(x+25+d,y+25+d);
-    vertex(x-10+(d+45-s5)/2,y+25+d);
-    vertex(x-10+(d+45-s5)/2,y+25+d-d);
-    vertex(x-20+(d+45-s5)/2,y+25+d-d);
-    vertex(x-20+(d+45-s5)/2,y+(d+45-s5)/4);
-    vertex(x-d-20+(d+45-s5)/2,y+(d+45-s5)/4);
-    vertex(x-d-20+(d+45-s5)/2,y);
-    
-    endShape();
-  }
-  /*function ashi2(x,y){
-    beginShape();
-    vertex(x,y-d);
-    vertex(x+15,y-d);
-    vertex(x+15,y);
-    vertex(x+30,y);
-    vertex(x+30,y+10);
-    vertex(x+30+d,y+10);
-    vertex(x+30+d,y+25);
-    vertex(x+20,y+25);
-    vertex(x,y+10);
-    vertex(x,y-d);
-  
-    endShape();
-  }
-  
-  function ashi3(x,y){
-    beginShape();
-    vertex(x,y-d);
-    vertex(x+15,y-d);
-    vertex(x+15,y);
-    vertex(x+25,y);
-    vertex(x+25,y+15);
-    vertex(x+25+d,y+15);
-    vertex(x+25+d,y+30);
-    vertex(x+20,y+30);
-    vertex(x,y+10);
-    vertex(x,y-d);
-  
-    endShape();
-  }*/
-  
-  function calculateX(xp, yp, xp2, yp2, yp3,xp6, yp6, xp7, yp7, yp8) {
-    // 傾きを計算
-    let m = (yp2 - yp) / (xp2 - xp);
-  
-    // 与えられた y に対する x の値を計算
-    let x = (yp3 - yp) / m + xp;
-  
-    return x
-    
-  }
-  
-  // 元の線の2つの点
-   x1 = 140;
-    y1 = 200-d;
-   x2 = 190;
-    y2 = 100;
-  x3 = 30;
-    y3 = 200;
-  x4 = 160+s2;
-    y4 = 200+d;
-  
-  // 使用例
-  let xp = x1;
-  let yp = y1;
-  let xp2 = x2;
-  let yp2 = y2;
-   yp3 = y1-20;
-   yp4 = y1-60;
-  yp5=100;
-  let xp6 = x3;
-  let yp6 = y3;
-  let xp7 = x4;
-  let yp7 = y4;
-  yp8=yp7-d/9;
-  resultX = calculateX(xp, yp, xp2, yp2, yp3);
-  resultX2 = calculateX(xp, yp, xp2, yp2, yp4);
-  resultX3 = calculateX(xp, yp, xp2, yp2, yp5);
-  resultX4 = calculateX(xp6, yp6, xp7, yp7, yp8);
