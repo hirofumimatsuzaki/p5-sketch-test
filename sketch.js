@@ -2,13 +2,13 @@
 const CANVAS_WIDTH = 2000;
 const CANVAS_HEIGHT = 700;
 
-let d;
-let s;
-let s2;
-let s3;
-let s4;
-let s5;
-let sc;
+let d=10;
+let s=80;
+let s2=0;
+let s3=0;
+let s4=0;
+let s5=0;
+let sc=0;
 let offsetX;
 let offsetY;
 let offsetX2;
@@ -84,81 +84,15 @@ function draw() {
 
 
     // --- 描画に反映 ---
-    strokeWeight(0.1); // do 0.1 for laser
-  stroke(255, 0, 0); // red is good for laser
-  noFill(); // better not to have a fill for laser
+    fill(255, 0, 0); // 赤色
+    noStroke();
     
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
     ellipse(width / 2, height / 2, sValue, sValue); 
-    
-    resultX = calculateX(x1, y1, x2, y2, yp3);
-  resultX2 = calculateX(x1, y1, x2, y2, yp4);
-  resultX3 = calculateX(x1, y1, x2, y2, yp5);
-  resultX4 = calculateX(xp6, yp6, xp7, yp7, yp8);
-  
-  // 元の線の傾きを計算
-  let dx = x2 - x1;
-  let dy = y2 - y1;
-
-  // 元の線に垂直な方向の単位ベクトルを計算
-  let length = dist(x1, y1, x2, y2); // 元の線の長さ
-  let perpDx = -dy / length; // 垂直な方向のx成分
-  let perpDy = dx / length; // 垂直な方向のy成分
-
-  // 移動する距離
-  let distance = d; // 30ピクセル垂直方向に移動
-
-  // 平行移動する分を計算
-   offsetX = perpDx * distance;
-   offsetY = perpDy * distance;
-  
-  // 平行移動後の新しい点を計算
-   newX1 = x1 + offsetX;
-   newY1 = y1 + offsetY;
-  newX2 = resultX3 + offsetX;
-   newY2 = yp5 + offsetY;
-  newX3 = resultX4+s2-offsetX;
-   newY3 = yp8+s2/60-offsetY2;//
-   //let newX2 = resultX3 + offsetX;
-  //let newY2 = yp5 + offsetY;
-  
-  length2=dist(resultX+s2,yp3,resultX2+s2, yp4);
-  length4=dist(resultX2+s2, yp4,resultX3+s2,yp5);
-  length5=dist(xp6,yp6,xp7+s2,yp7);
-
-  
-  let dx2 = x4 - x3;
-  let dy2 = y4 - y3;
-
-  // 元の線に垂直な方向の単位ベクトルを計算
-  let length3 = dist(x3, y3, x4, y4); // 元の線の長さ
-  let perpDx2 = -dy2 / length3; // 垂直な方向のx成分
-  let perpDy2 = dx2 / length3; // 垂直な方向のy成分
-
-  // 移動する距離
-  let distance2 = d; // 30ピクセル垂直方向に移動
-
-  // 平行移動する分を計算
-   offsetX2 = perpDx2 * distance2;
-   offsetY2 = perpDy2 * distance2;
-  //console.log(length2);
-
-  /*rect(resultX, yp3, 5, 5);
-  rect(resultX + offsetX, yp3 + offsetY, 5, 5);
-  rect(resultX2, yp4, 5, 5);
-  rect(resultX2 + offsetX, yp4 + offsetY, 5, 5);*/
-  
-  //console.log(length2);
-  //fill(0);
-  noStroke();
-  let angle = atan2(y2 - y1, x2 - x1);
-  let angleDegrees = degrees(angle);
-  
-  let theta = degrees(angle);
-  text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 30);
-  
-  scale(sc/10);
-  
+    /*ellipse(20, 20, s2Value, s2Value); 
+    ellipse(40, 40, s3Value, s3Value); 
+    ellipse(60, 60, s5Value, s5Value); 
+    ellipse(80, 80, scValue, scValue); 
+    ellipse(100, 100, yp5Value, yp5Value); */
 }
-  
