@@ -1,56 +1,95 @@
-/* 基本的なリセット */
-body {
+/* 基本リセット */
+html, body {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* 画面全体のスクロールを防止 */
     font-family: sans-serif;
 }
 
-/* 2カラムレイアウトのコンテナ */
+/* 全体コンテナ */
 .container {
     display: flex;
-    /* [変更点 1] 画面の高さいっぱいにコンテナを広げ、上下マージンを引く */
-    height: calc(100vh - 40px);
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    /* [変更点 1] オーバーフローを隠す */
-    overflow: hidden; 
+    width: 100vw;
+    height: 100vh;
 }
 
-/* カラムの共通スタイル */
+/* 共通カラム設定 */
 .column {
-    padding: 20px;
+    height: 100%;
     box-sizing: border-box;
-    /* [変更点 2] 親コンテナの高さ全体を占める */
-    height: 100%; 
-    /* [変更点 2] コンテンツが長すぎる場合は、そのカラム内でのみスクロール */
-    overflow-y: auto; 
 }
 
-/* 左側のカラム: 幅を固定 (例: 300px) */
+/* 左カラム（設定） */
 .left-column {
-    width: 300px;
-    background-color: #f0f0f0;
+    width: 350px;
+    min-width: 350px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    overflow-y: auto; /* 設定項目が多い場合はここだけスクロール */
 }
 
-/* 右側のカラム: 残りの幅をすべて使用 */
+/* 右カラム（キャンバス） */
 .right-column {
-    flex-grow: 1;
-    background-color: #ffffff;
+    flex-grow: 1; /* 残りの幅を全部使う */
+    background-color: #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* [変更点 3] 右側のカラムはオーバーフローを隠す (キャンバスがはみ出るのを防ぐ) */
-    overflow: hidden;
 }
 
-/* p5.jsキャンバス (自動生成されるcanvasタグ) のスタイル調整 */
-canvas {
+/* フォームの見た目調整 */
+.control-section {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.control-group {
+    margin-bottom: 12px;
+}
+
+.control-group label {
     display: block;
-    /* [変更点 4] キャンバスが親の高さからはみ出さないようにする */
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto; /* p5.jsの幅/高さ設定を尊重しつつ、max-width/max-heightで制限 */
-    border: 1px dashed #0056b3;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.control-group input[type="range"],
+.control-group input[type="number"],
+.control-group select {
+    width: 100%;
+}
+
+.control-group span {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+}
+
+.download-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* p5.js キャンバスのレスポンシブ対応 */
+canvas {
+    max-width: 95%;
+    max-height: 95%;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
