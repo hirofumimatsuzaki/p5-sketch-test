@@ -84,9 +84,9 @@ function draw() {
 
 
     // --- 描画に反映 ---
-    fill(255, 0, 0); // 赤色
+    fill(255); // 白色
     noStroke();
-    
+    ashi(300,50);
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
     //ellipse(width / 2, height / 2, sValue, sValue); 
@@ -123,4 +123,32 @@ function mousePressed(){
       mx2=mouseX;
       my2=mouseY;
     }
+  }
+
+  function ashi(x,y){
+    beginShape();
+  /*vertex(x,y-15);
+    vertex(x+(d+45-s5)/2,y-15);
+    vertex(x+(d+45-s5)/2,y);
+    vertex(x+30,y);
+    vertex(x+30,y+15);
+    vertex(x+45,y+15);
+    vertex(x+45,y+30);
+    vertex(x+20,y+30);
+    vertex(x,y+15);
+    vertex(x,y-15);*/
+    
+    vertex(x-d-20+(d+45-s5)/2,y);
+    vertex(x+15,y);
+    //vertex(x+25+d,y);
+    vertex(x+25+d,y+10+d);
+    vertex(x+25+d,y+25+d);
+    vertex(x-10+(d+45-s5)/2,y+25+d);
+    vertex(x-10+(d+45-s5)/2,y+25+d-d);
+    vertex(x-20+(d+45-s5)/2,y+25+d-d);
+    vertex(x-20+(d+45-s5)/2,y+(d+45-s5)/4);
+    vertex(x-d-20+(d+45-s5)/2,y+(d+45-s5)/4);
+    vertex(x-d-20+(d+45-s5)/2,y);
+    
+    endShape();
   }
