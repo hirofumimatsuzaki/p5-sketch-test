@@ -89,10 +89,38 @@ function draw() {
     
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
-    ellipse(width / 2, height / 2, sValue, sValue); 
+    //ellipse(width / 2, height / 2, sValue, sValue); 
     /*ellipse(20, 20, s2Value, s2Value); 
     ellipse(40, 40, s3Value, s3Value); 
     ellipse(60, 60, s5Value, s5Value); 
     ellipse(80, 80, scValue, scValue); 
     ellipse(100, 100, yp5Value, yp5Value); */
+
+    stroke(0);
+  strokeWeight(1);
+  
+  if(mx2!=null){
+  line(mx,my,mx2,my2);  
+     length6=dist(mx,my,mx2,my2);
+
+  }
 }
+
+function mousePressed(){
+    count++;
+    if(count>2){
+      count=0;
+      mx=null;
+      my=null;
+      mx2=null;
+      my2=null;
+    }
+    if(count==1){
+      mx=mouseX;
+      my=mouseY;
+    }
+    if(count==2){
+      mx2=mouseX;
+      my2=mouseY;
+    }
+  }
