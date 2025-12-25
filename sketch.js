@@ -78,7 +78,7 @@ function draw() {
 
     let sliderSC = document.getElementById('sc');
     let scValue = parseFloat(sliderSC.value);
-    document.getElementById('display_sc').innerText = scValue + " 倍";
+    document.getElementById('display_sc').innerText = scValue/10 + " 倍";
 
     let sliderYP5 = document.getElementById('yp5');
     let yp5Value = parseFloat(sliderYP5.value);
