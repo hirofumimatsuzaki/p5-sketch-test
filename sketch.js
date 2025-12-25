@@ -86,6 +86,8 @@ function draw() {
     // --- 描画に反映 ---
     fill(255); // 白色
     noStroke();
+    mae(800,100);
+    ushiro(780,300);
     ashi(300,50);
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
@@ -123,6 +125,62 @@ function mousePressed(){
       mx2=mouseX;
       my2=mouseY;
     }
+  }
+
+  function mae(x,y){
+    beginShape();
+    vertex(x,y+10-d-s3);
+    vertex(x+s,y+10-d-s3);
+    vertex(x+s,y+10-s3);
+    vertex(x+s+20,y+10-s3);
+    vertex(x+s+20,y+60-s3);
+    vertex(x+s+20-d,y+60-s3);
+    vertex(x+s+20-d,y+110);
+    vertex(x+s+20,y+110);
+    vertex(x+s+20,y+130+d);
+    vertex(x+s+5,y+130+d);
+    vertex(x+s+5,y+130);
+    vertex(x+s-10,y+130);
+    vertex(x+s-20+s5/2,y+60-s3);
+    vertex(x+20-s5/2,y+60-s3);
+    vertex(x+10,y+130);
+    vertex(x-5,y+130);
+    vertex(x-5,y+130+d);
+    vertex(x-20,y+130+d);
+    vertex(x-20,y+110);
+    vertex(x-20+d,y+110);
+    vertex(x-20+d,y+60-s3);
+    vertex(x-20,y+60-s3);
+    vertex(x-20,y+10-s3);
+    vertex(x,y+10-s3);
+    vertex(x,y+10-d-s3);
+    endShape();
+  }
+
+  function ushiro(x,y){
+    beginShape();
+    vertex(x+d,y+30-s3);
+    vertex(x+s+40-d,y+30-s3);
+    vertex(x+s+40-d,y+60-s3);
+    vertex(x+s+40,y+60-s3);
+    vertex(x+s+40,y+110);
+    vertex(x+s+40-d,y+110);
+    vertex(x+s+40-d,y+130+d);
+    vertex(x+s+20,y+130+d);
+    vertex(x+s+20,y+130);
+    vertex(x+s+5,y+130);
+    vertex(x+s+s5/2,y+60-s3);
+    vertex(x+40-s5/2,y+60-s3);
+    vertex(x+35,y+130);
+    vertex(x+20,y+130);
+    vertex(x+20,y+130+d);
+    vertex(x+d,y+130+d);
+    vertex(x+d,y+110);
+    vertex(x,y+110);
+    vertex(x,y+60-s3);
+    vertex(x+d,y+60-s3);
+    vertex(x+d,y+30-s3);
+    endShape();
   }
 
   function ashi(x,y){
