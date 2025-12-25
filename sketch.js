@@ -9,6 +9,7 @@ let s3=0;
 let s4=0;
 let s5=0;
 let sc=0;
+let test=0;//test
 let offsetX;
 let offsetY;
 let offsetX2;
