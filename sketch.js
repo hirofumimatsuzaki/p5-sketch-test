@@ -88,6 +88,7 @@ function draw() {
     let yp5Value = parseFloat(sliderYP5.value);
     document.getElementById('display_yp5').innerText = yp5Value + " mm";
 
+    d=iValue;
     s=sValue;
     s2=s2Value;
     s5=s5Value;
