@@ -58,6 +58,7 @@ function draw() {
     let sliderS = document.getElementById('s');
     // スライダーの現在の値（文字列）を数値に変換
     let sValue = parseFloat(sliderS.value);
+    ellipse(10,10,sValue,sValue);
 
     // --- 数値表示の更新 ---
     // id="display_s" のスパンに現在の値を表示
