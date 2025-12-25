@@ -54,7 +54,7 @@ function draw() {
 
     let sD = document.getElementById('d');
     let dValue = parseFloat(sD.value);
-    document.getElementById('display_d').innerText = dValue + " mm";
+    //document.getElementById('display_d').innerText = dValue + " mm";
 
     // --- HTMLのスライダーから値を取得 ---
     // id="s" のスライダー要素を取得
