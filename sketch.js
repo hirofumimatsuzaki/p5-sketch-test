@@ -52,9 +52,9 @@ function setup() {
 function draw() {
     background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
 
-    let sD = document.getElementById('d');
-    //let dValue = parseFloat(sD.value);
-    //document.getElementById('display_d').innerText = dValue + " mm";
+    let sD = document.getElementById('material_thickness');
+    let dValue = parseFloat(sD.value);
+   document.getElementById('display_d').innerText = dValue + " mm";
 
     // --- HTMLのスライダーから値を取得 ---
     // id="s" のスライダー要素を取得
