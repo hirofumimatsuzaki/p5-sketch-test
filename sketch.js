@@ -86,6 +86,7 @@ function draw() {
     // --- 描画に反映 ---
     fill(255); // 白色
     noStroke();
+    ue(250,100);
     mae(800,100);
     ushiro(780,300);
     ashi(300,50);
@@ -125,6 +126,32 @@ function mousePressed(){
       mx2=mouseX;
       my2=mouseY;
     }
+  }
+
+  function ue(x,y){
+    beginShape();
+    vertex(x+d,y);
+    vertex(x+40+s-d,y);
+    vertex(x+40+s-d,y+40);
+    vertex(x+40+s,y+40);
+    vertex(x+40+s,y+180+d+s2);
+    vertex(x,y+180+d+s2);
+    vertex(x,y+40);
+    vertex(x+d,y+40);
+    vertex(x+d,y);
+    endShape();
+    
+    stroke(0);
+    
+    beginShape();
+    vertex(x+20,y+170+s2-d+d);
+    vertex(x+40+s-20,y+170+s2-d+d);
+    vertex(x+40+s-20,y+170+s2+d);
+    vertex(x+20,y+170+s2+d);
+    vertex(x+20,y+170+s2-d+d);
+    endShape();
+    
+    noStroke();
   }
 
   function mae(x,y){
