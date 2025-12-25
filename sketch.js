@@ -53,7 +53,7 @@ function draw() {
     background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
 
     let sD = document.getElementById('d');
-    let dValue = parseFloat(sD.value);
+    //let dValue = parseFloat(sD.value);
     //document.getElementById('display_d').innerText = dValue + " mm";
 
     // --- HTMLのスライダーから値を取得 ---
@@ -86,13 +86,13 @@ function draw() {
     let yp5Value = parseFloat(sliderYP5.value);
     document.getElementById('display_yp5').innerText = yp5Value + " mm";
 
-    d=dValue;
+    /*d=dValue;
     s=sValue;
     s2=s2Value;
     s3=s3Value;
     s5=s5Value;
     sc=scValue;
-    yp5=yp5Value;
+    yp5=yp5Value;*/
 
     // --- 描画に反映 ---
     fill(255); // 白色
