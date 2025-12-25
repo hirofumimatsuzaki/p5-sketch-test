@@ -53,12 +53,16 @@ function setup() {
 function draw() {
     background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
 
+
+    let inputValue=document.getElementById('material_thickness');
+    let iValue=parseFloat(inputValue.value);
+    document.getElementById('display_i').innerText = iValue + " mm";
     // --- HTMLのスライダーから値を取得 ---
     // id="s" のスライダー要素を取得
     let sliderS = document.getElementById('s');
     // スライダーの現在の値（文字列）を数値に変換
     let sValue = parseFloat(sliderS.value);
-    ellipse(1000,100,sValue,sValue);
+    ellipse(1000,100,iValue,iValue);
 
     // --- 数値表示の更新 ---
     // id="display_s" のスパンに現在の値を表示
