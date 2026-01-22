@@ -220,7 +220,7 @@ function mousePressed(){
     vertex(resultX2 + offsetX+s2, yp4 + offsetY);
     vertex(resultX2+s2, yp4);
     vertex(resultX3+s2,yp5);
-    vertex(newX2+s2,newY2);
+    vertex(x+170+s2,newY2);
     vertex(x+170+s2,y+50);
     vertex(x+170+s2-d,y+50);
     vertex(x+170+s2-d,y+100+s3);
@@ -231,9 +231,9 @@ function mousePressed(){
     vertex(x+140+s2,y+120+s3);
     vertex(x+120+s5+s2,y+40);
     vertex(x+45-s5,y+40);
-    vertex(x+(d+45-s5)/2,y+120+s3);
-    vertex(x+10,y+120+s3);
-    vertex(x+10,y+120+s3+d);
+    vertex(x-d+30,y+120+s3);
+    vertex(x-d+30/2,y+120+s3);
+    vertex(x-d+30/2,y+120+s3+d);
     vertex(x,y+120+s3+d);
     vertex(x,y+100+s3);
     vertex(x-d,y+100+s3);
@@ -293,10 +293,10 @@ function mousePressed(){
     vertex(x+s,y+10-d-s3);
     vertex(x+s,y+10-s3);
     vertex(x+s+20,y+10-s3);
-    vertex(x+s+20,y+60-s3);
-    vertex(x+s+20-d,y+60-s3);
-    vertex(x+s+20-d,y+110);
-    vertex(x+s+20,y+110);
+    vertex(x+s+20,y+50+d-s3);
+    vertex(x+s+20-d,y+50+d-s3);
+    vertex(x+s+20-d,y+100+d);
+    vertex(x+s+20,y+100+d);
     vertex(x+s+20,y+130+d);
     vertex(x+s+5,y+130+d);
     vertex(x+s+5,y+130);
@@ -307,10 +307,10 @@ function mousePressed(){
     vertex(x-5,y+130);
     vertex(x-5,y+130+d);
     vertex(x-20,y+130+d);
-    vertex(x-20,y+110);
-    vertex(x-20+d,y+110);
-    vertex(x-20+d,y+60-s3);
-    vertex(x-20,y+60-s3);
+    vertex(x-20,y+100+d);
+    vertex(x-20+d,y+100+d);
+    vertex(x-20+d,y+50+d-s3);
+    vertex(x-20,y+50+d-s3);
     vertex(x-20,y+10-s3);
     vertex(x,y+10-s3);
     vertex(x,y+10-d-s3);
@@ -321,10 +321,10 @@ function mousePressed(){
     beginShape();
     vertex(x+d,y+30-s3);
     vertex(x+s+40-d,y+30-s3);
-    vertex(x+s+40-d,y+60-s3);
-    vertex(x+s+40,y+60-s3);
-    vertex(x+s+40,y+110);
-    vertex(x+s+40-d,y+110);
+    vertex(x+s+40-d,y+50+d-s3);
+    vertex(x+s+40,y+50+d-s3);
+    vertex(x+s+40,y+100+d);
+    vertex(x+s+40-d,y+100+d);
     vertex(x+s+40-d,y+130+d);
     vertex(x+s+20,y+130+d);
     vertex(x+s+20,y+130);
@@ -335,28 +335,28 @@ function mousePressed(){
     vertex(x+20,y+130);
     vertex(x+20,y+130+d);
     vertex(x+d,y+130+d);
-    vertex(x+d,y+110);
-    vertex(x,y+110);
-    vertex(x,y+60-s3);
-    vertex(x+d,y+60-s3);
+    vertex(x+d,y+100+d);
+    vertex(x,y+100+d);
+    vertex(x,y+50+d-s3);
+    vertex(x+d,y+50+d-s3);
     vertex(x+d,y+30-s3);
     endShape();
   }
 
   function ashi(x,y){
     beginShape();
-  /*vertex(x,y-15);
-    vertex(x+(d+45-s5)/2,y-15);
-    vertex(x+(d+45-s5)/2,y);
-    vertex(x+30,y);
-    vertex(x+30,y+15);
-    vertex(x+45,y+15);
-    vertex(x+45,y+30);
-    vertex(x+20,y+30);
-    vertex(x,y+15);
-    vertex(x,y-15);*/
+   vertex(x,y);
+   vertex(x+10,y);
+   vertex(x+20+d,y+20+d-10);
+   vertex(x+20+d,y+20+d);
+   vertex(x+(20+d)/2,y+20+d);
+   vertex(x+(20+d)/2,y+20+d-d);
+   vertex(x+d,y+20+d-d);
+   vertex(x+d,y+(20+d)/2);
+   vertex(x,y+(20+d)/2);
+
     
-    vertex(x-d-20+(d+45-s5)/2,y);
+    /*vertex(x-d-20+(d+45-s5)/2,y);
     vertex(x+15,y);
     //vertex(x+25+d,y);
     vertex(x+25+d,y+10+d);
@@ -366,7 +366,7 @@ function mousePressed(){
     vertex(x-20+(d+45-s5)/2,y+25+d-d);
     vertex(x-20+(d+45-s5)/2,y+(d+45-s5)/4);
     vertex(x-d-20+(d+45-s5)/2,y+(d+45-s5)/4);
-    vertex(x-d-20+(d+45-s5)/2,y);
+    vertex(x-d-20+(d+45-s5)/2,y);*/
     
     endShape();
   }
