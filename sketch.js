@@ -1,6 +1,6 @@
 // キャンバスのサイズを定義
-const CANVAS_WIDTH = 2000;
-const CANVAS_HEIGHT = 700;
+const CANVAS_WIDTH = 2700;
+const CANVAS_HEIGHT = 1400;
 
 let d=10;
 let s=80;
@@ -8,6 +8,12 @@ let s2=0;
 let s3=0;
 let s4=0;
 let s5=0;
+let s6=40;
+let s7=20;
+let s8=-80;
+let s9;
+let s10;
+let s11=0;
 //let sc=0;
 let test=0;//test
 let offsetX;
@@ -27,6 +33,10 @@ let x4,y4;
 let yp3;
 let yp4;
 let yp5=100;
+let xp6
+let yp6;
+let xp7;
+let yp7;
 let resultX;
 let resultX2;
 let resultX3;
@@ -36,23 +46,44 @@ let length2;
 let length4;
 let length5;
 let length6;
+//let length7;
 let count=0;
 let mx;
 let my;
 let mx2;
 let my2;
+let centerY;
+let button;
+
 
 function setup() {
     // 1. キャンバスを作成
-    let canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    
+    //let canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    let canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, SVG);
+
+
     // 2. 作成したキャンバスを右側のカラムの要素にアタッチする
     canvas.parent('canvas-container'); 
+
+    const btn = document.getElementById("download-button");
+
+  btn.addEventListener("click", () => {
+    saveS();
+  });
 }
 
 function draw() {
+  scale(0.6);
+  translate(0,400);
     background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
-
+   fill(50);
+   textSize(16);
+    text("側面縦幅"+(320+s3+d-(0+yp5))+"mm",10,20);
+    text("側面横幅"+(170+d+s2)+"mm",140,20);
+    text("全体縦幅"+(320+s3+d-(0+yp5)+20)+"mm",10,40);
+    text("全体横幅"+(170+d*2+s2)+"mm",140,40);
+    text(length6,10,60);
+    translate(0,300);
     resultX = calculateX(x1, y1, x2, y2, yp3);
     resultX2 = calculateX(x1, y1, x2, y2, yp4);
     resultX3 = calculateX(x1, y1, x2, y2, yp5);
@@ -108,10 +139,12 @@ function draw() {
   let angleDegrees = degrees(angle);
   
   let theta = degrees(angle);
-  fill(0);
-  text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 35);
-
+  //fill(0);
+  //text("Angle: " + nf(angleDegrees, 1, 2) + " degrees", 10, 35);
   
+  x1 = 140+s8
+  x2=145+s7+s8;
+
   
   //scale(sc/10);
     
@@ -148,29 +181,47 @@ function draw() {
     let sliderYP5 = document.getElementById('yp5');
     let yp5Value = parseFloat(sliderYP5.value);
     document.getElementById('display_yp5').innerText = yp5Value + " mm";
-fill(0);
-    text("側面縦幅"+(320+s3+d-(0+yp5))+"mm",10,20);
-    text("側面横幅"+(170+d+s2)+"mm",120,20);
-    text(length6,10,55);
+
+    let sliderS6 = document.getElementById('s6');
+    let s6Value = parseFloat(sliderS6.value);
+    document.getElementById('display_s6').innerText = s6Value + " mm";
+
+    let sliderS7 = document.getElementById('s7');
+    let s7Value = parseFloat(sliderS7.value);
+    document.getElementById('display_s7').innerText = s7Value + " mm";
+
+    let sliderS8 = document.getElementById('s8');
+    let s8Value = parseFloat(sliderS8.value);
+    document.getElementById('display_s8').innerText = s8Value + " mm";
+
+    let sliderS11 = document.getElementById('s11');
+    let s11Value = parseFloat(sliderS11.value);
+    document.getElementById('display_s11').innerText = s11Value + " mm";
+
 
     d=iValue;
     s=sValue;
     s2=s2Value;
     s3=s3Value;
     s5=s5Value;
+    s6=s6Value;
+    s7=s7Value;
+    s8=s8Value;
+    s11=s11Value;
     //sc=scValue;
     yp5=yp5Value;
+  
 
     // --- 描画に反映 ---
     fill(255); // 白色
     noStroke();
 
     sokumen(30,200);
-    ue(250,100);
-    semotare(500,100);
-    mae(800,100);
-    ushiro(780,300);
-    ashi(300,50);
+    ue(230+s2,100);
+    semotare(330+s2+s,100);
+    mae(450+s2+s*2,200+s3);
+    ushiro(500+s2+s*3,200+s3);
+    ashi(300+s2,50);
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
     //ellipse(width / 2, height / 2, sValue, sValue); 
@@ -183,11 +234,20 @@ fill(0);
     stroke(0);
   strokeWeight(1);
   
-  if(mx2!=null){
-  line(mx,my,mx2,my2);  
+  /*if(mx2!=null){
+  line(mx,my-300,mx2,my2-300);  
      length6=dist(mx,my,mx2,my2);
 
-  }
+  }*/
+  centerY=120+s3+d;
+
+
+}
+
+function saveS(){
+   save("mySVG.svg"); // give file name
+  print("saved svg");
+  //noLoop(); // we just want to export once
 }
 
 function mousePressed(){
@@ -212,35 +272,38 @@ function mousePressed(){
   function sokumen(x,y){
     beginShape();
     vertex(xp6,yp6);
-    vertex(xp7+s2,yp7);
-    vertex(xp7+s2,yp7-offsetY2);
-    vertex(x1+s2,yp7-offsetY2);
+    vertex(xp7+s2,yp7+s11);
+    vertex(xp7+s2,yp7+s11-offsetY2);
+    vertex(x1+s2-s11/5,yp7+s11-offsetY2-s11/5);
     vertex(resultX+s2,yp3);
     vertex(resultX + offsetX+s2, yp3 + offsetY);
     vertex(resultX2 + offsetX+s2, yp4 + offsetY);
     vertex(resultX2+s2, yp4);
     vertex(resultX3+s2,yp5);
-    vertex(x+170+s2,newY2);
-    vertex(x+170+s2,y+50);
-    vertex(x+170+s2-d,y+50);
-    vertex(x+170+s2-d,y+100+s3);
-    vertex(x+170+s2,y+100+s3);
+    vertex(resultX3+s2+d,newY2);
+    vertex(x+170+s2,y+centerY/4);
+    vertex(x+170+s2-d,y+centerY/4);
+    vertex(x+170+s2-d,y+centerY/1.5);
+    vertex(x+170+s2,y+centerY/1.5);
     vertex(x+170+s2,y+120+s3+d);
     vertex(x+155+s2,y+120+s3+d);
     vertex(x+155+s2,y+120+s3);
     vertex(x+140+s2,y+120+s3);
-    vertex(x+120+s5+s2,y+40);
-    vertex(x+45-s5,y+40);
+    vertex(x+120+s5+s2,y+s6);
+    vertex(x+45-s5,y+s6);
     vertex(x-d+30,y+120+s3);
     vertex(x-d+30/2,y+120+s3);
     vertex(x-d+30/2,y+120+s3+d);
     vertex(x,y+120+s3+d);
-    vertex(x,y+100+s3);
-    vertex(x-d,y+100+s3);
-    vertex(x-d,y+50);
-    vertex(x,y+50);
+    vertex(x,y+centerY/1.5);
+    vertex(x-d,y+centerY/1.5);
+    vertex(x-d,y+centerY/4);
+    vertex(x,y+centerY/4);
     vertex(x,y);
+    s9=y+centerY/4;
+    s10=y+centerY/1.5;
     endShape();
+    
   }
 
   function ue(x,y){
@@ -249,8 +312,8 @@ function mousePressed(){
     vertex(x+40+s-d,y);
     vertex(x+40+s-d,y+40);
     vertex(x+40+s,y+40);
-    vertex(x+40+s,y+180+d+s2);
-    vertex(x,y+180+d+s2);
+    vertex(x+40+s,y+170+5+d*2+s2);
+    vertex(x,y+170+5+d*2+s2);
     vertex(x,y+40);
     vertex(x+d,y+40);
     vertex(x+d,y);
@@ -293,10 +356,10 @@ function mousePressed(){
     vertex(x+s,y+10-d-s3);
     vertex(x+s,y+10-s3);
     vertex(x+s+20,y+10-s3);
-    vertex(x+s+20,y+50+d-s3);
-    vertex(x+s+20-d,y+50+d-s3);
-    vertex(x+s+20-d,y+100+d);
-    vertex(x+s+20,y+100+d);
+    vertex(x+s+20,s9+d);
+    vertex(x+s+20-d,s9+d);
+    vertex(x+s+20-d,s10+d);
+    vertex(x+s+20,s10+d);
     vertex(x+s+20,y+130+d);
     vertex(x+s+5,y+130+d);
     vertex(x+s+5,y+130);
@@ -307,10 +370,10 @@ function mousePressed(){
     vertex(x-5,y+130);
     vertex(x-5,y+130+d);
     vertex(x-20,y+130+d);
-    vertex(x-20,y+100+d);
-    vertex(x-20+d,y+100+d);
-    vertex(x-20+d,y+50+d-s3);
-    vertex(x-20,y+50+d-s3);
+    vertex(x-20,s10+d);
+    vertex(x-20+d,s10+d);
+    vertex(x-20+d,s9+d);
+    vertex(x-20,s9+d);
     vertex(x-20,y+10-s3);
     vertex(x,y+10-s3);
     vertex(x,y+10-d-s3);
@@ -321,10 +384,10 @@ function mousePressed(){
     beginShape();
     vertex(x+d,y+30-s3);
     vertex(x+s+40-d,y+30-s3);
-    vertex(x+s+40-d,y+50+d-s3);
-    vertex(x+s+40,y+50+d-s3);
-    vertex(x+s+40,y+100+d);
-    vertex(x+s+40-d,y+100+d);
+    vertex(x+s+40-d,s9+d);
+    vertex(x+s+40,s9+d);
+    vertex(x+s+40,s10+d);
+    vertex(x+s+40-d,s10+d);
     vertex(x+s+40-d,y+130+d);
     vertex(x+s+20,y+130+d);
     vertex(x+s+20,y+130);
@@ -335,10 +398,10 @@ function mousePressed(){
     vertex(x+20,y+130);
     vertex(x+20,y+130+d);
     vertex(x+d,y+130+d);
-    vertex(x+d,y+100+d);
-    vertex(x,y+100+d);
-    vertex(x,y+50+d-s3);
-    vertex(x+d,y+50+d-s3);
+    vertex(x+d,s10+d);
+    vertex(x,s10+d);
+    vertex(x,s9+d);
+    vertex(x+d,s9+d);
     vertex(x+d,y+30-s3);
     endShape();
   }
@@ -383,13 +446,14 @@ function mousePressed(){
   }
 
   // 元の線の2つの点
- x1 = 140;
+ //x1 = 140;
  y1 = 200-d;
-x2 = 190;
+//x2 = 160;
  y2 = 100;
 x3 = 30;
  y3 = 200;
 x4 = 160+s2;
+//y4 = s11;
  y4 = 200;
 
 // 使用例
@@ -399,14 +463,49 @@ let xp2 = x2;
 let yp2 = y2;
 yp3 = y1-20;
 yp4 = y1-60;
+//yp4 = y1-60;
 yp5=100;
-let xp6 = x3;
-let yp6 = y3;
-let xp7 = x4;
-let yp7 = y4;
+xp6 = x3;
+yp6 = y3;
+xp7 = x4;
+yp7 = y4;
 yp8=yp7-d/9;
 resultX = calculateX(xp, yp, xp2, yp2, yp3);
 resultX2 = calculateX(xp, yp, xp2, yp2, yp4);
 resultX3 = calculateX(xp, yp, xp2, yp2, yp5);
 resultX4 = calculateX(xp6, yp6, xp7, yp7, yp8);
 console.log(); // 結果: 50
+
+/*<div class="control-section">
+                <h3>椅子のカスタムパラメータ</h3>
+                <div class="control-group">
+                    <label for="s">座面横幅 (s)</label>
+                    <input type="range" id="s" value="80" min="50" max="500">
+                    <span id="display_s">80 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s2">側面横幅調整 (s2)</label>
+                    <input type="range" id="s2" value="0" min="-100" max="500">
+                    <span id="display_s2">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s3">足長さ調整 (s3)</label>
+                    <input type="range" id="s3" value="0" min="-50" max="500">
+                    <span id="display_s3">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s5">足細さ調整 (s5)</label>
+                    <input type="range" id="s5" value="0" min="-200" max="200">
+                    <span id="display_s5">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="yp5">背もたれ長さ (yp5)</label>
+                    <input type="range" id="yp5" value="100" min="-500" max="130">
+                    <span id="display_yp5">100 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s6">足調整 (s6)</label>
+                    <input type="range" id="s6" value="40" min="-200" max="200">
+                    <span id="display_s6">0 mm</span>
+                </div>
+            </div>*/

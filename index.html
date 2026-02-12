@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>p5.js 2カラムレイアウト</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
+    <script src="https://unpkg.com/p5.js-svg@1.6.0"></script>
 </head>
 <body>
 
@@ -25,8 +27,8 @@
 
                 <div class="control-group">
                     <label for="material_thickness">材料の厚み (d)</label>
-                    <input type="number" id="material_thickness" value="10" min="1" max="50">
-                    <span id="display_i">10 mm</span>
+                    <input type="number" id="material_thickness" value="12" min="1" max="50">
+                    <span id="display_i">12 mm</span>
                 </div>
             </div>
 
@@ -34,28 +36,48 @@
                 <h3>椅子のカスタムパラメータ</h3>
                 <div class="control-group">
                     <label for="s">座面横幅 (s)</label>
-                    <input type="range" id="s" value="80" min="50" max="180">
+                    <input type="range" id="s" value="357" min="50" max="500">
                     <span id="display_s">80 mm</span>
                 </div>
                 <div class="control-group">
                     <label for="s2">側面横幅調整 (s2)</label>
-                    <input type="range" id="s2" value="0" min="-50" max="50">
+                    <input type="range" id="s2" value="420" min="-100" max="600">
                     <span id="display_s2">0 mm</span>
                 </div>
                 <div class="control-group">
                     <label for="s3">足長さ調整 (s3)</label>
-                    <input type="range" id="s3" value="0" min="-50" max="50">
+                    <input type="range" id="s3" value="300" min="-50" max="500">
                     <span id="display_s3">0 mm</span>
                 </div>
                 <div class="control-group">
                     <label for="s5">足細さ調整 (s5)</label>
-                    <input type="range" id="s5" value="0" min="-40" max="25">
+                    <input type="range" id="s5" value="-75" min="-200" max="200">
                     <span id="display_s5">0 mm</span>
                 </div>
                 <div class="control-group">
                     <label for="yp5">背もたれ長さ (yp5)</label>
-                    <input type="range" id="yp5" value="100" min="50" max="130">
+                    <input type="range" id="yp5" value="-280" min="-500" max="130">
                     <span id="display_yp5">100 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s6">足調整 (s6)</label>
+                    <input type="range" id="s6" value="80" min="-200" max="200">
+                    <span id="display_s6">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s7">背もたれ角度 (s7)</label>
+                    <input type="range" id="s7" value="20" min="-200" max="200">
+                    <span id="display_s7">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s7">背もたれ幅 (s8)</label>
+                    <input type="range" id="s8" value="-80" min="-200" max="200">
+                    <span id="display_s8">0 mm</span>
+                </div>
+                <div class="control-group">
+                    <label for="s11">座面角度 (s11)</label>
+                    <input type="range" id="s11" value="0" min="0" max="40">
+                    <span id="display_s11">0 mm</span>
                 </div>
             </div>
             
@@ -64,12 +86,14 @@
             </button>
         </div>
 
+        <div id="sketch-holder">
         <div class="column right-column" id="canvas-container">
             </div>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
-    <script src="sketch.js"></script>
 
+    
+    <script src="sketch.js"></script>
+</div>
 </body>
 </html>

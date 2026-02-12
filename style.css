@@ -93,3 +93,12 @@ canvas {
     height: auto !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
+
+canvas,
+svg#defaultCanvas0 {
+    max-width: 95%;
+    max-height: 95%;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
