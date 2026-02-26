@@ -14,6 +14,7 @@ let s8=-80;
 let s9;
 let s10;
 let s11=0;
+let s12=15;
 //let sc=0;
 let test=0;//test
 let offsetX;
@@ -77,11 +78,11 @@ function draw() {
   translate(0,400);
     background(220); // 毎フレーム背景を塗りつぶす（残像を消すため）
    fill(50);
-   textSize(16);
+   textSize(24);
     text("側面縦幅"+(320+s3+d-(0+yp5))+"mm",10,20);
-    text("側面横幅"+(170+d+s2)+"mm",140,20);
-    text("全体縦幅"+(320+s3+d-(0+yp5)+20)+"mm",10,40);
-    text("全体横幅"+(170+d*2+s2)+"mm",140,40);
+    text("側面横幅"+(170+d+s2)+"mm",220,20);
+    text("全体縦幅"+(320+s3+d-(0+yp5)+20)+"mm",10,60);
+    text("全体横幅"+(170+d*2+s2)+"mm",220,60);
     text(length6,10,60);
     translate(0,300);
     resultX = calculateX(x1, y1, x2, y2, yp3);
@@ -198,6 +199,10 @@ function draw() {
     let s11Value = parseFloat(sliderS11.value);
     document.getElementById('display_s11').innerText = s11Value + " mm";
 
+    let sliderS12 = document.getElementById('s12');
+    let s12Value = parseFloat(sliderS12.value);
+    document.getElementById('display_s12').innerText = s12Value + " mm";
+
 
     d=iValue;
     s=sValue;
@@ -208,6 +213,7 @@ function draw() {
     s7=s7Value;
     s8=s8Value;
     s11=s11Value;
+    s12=s12Value;
     //sc=scValue;
     yp5=yp5Value;
   
@@ -231,7 +237,7 @@ function draw() {
     ellipse(80, 80, scValue, scValue); 
     ellipse(100, 100, yp5Value, yp5Value); */
 
-    stroke(0);
+    stroke(1);
   strokeWeight(1);
   
   /*if(mx2!=null){
@@ -270,6 +276,9 @@ function mousePressed(){
   }
 
   function sokumen(x,y){
+    stroke(1);
+    strokeWeight(1);
+    
     beginShape();
     vertex(xp6,yp6);
     vertex(xp7+s2,yp7+s11);
@@ -289,11 +298,11 @@ function mousePressed(){
     vertex(x+155+s2,y+120+s3+d);
     vertex(x+155+s2,y+120+s3);
     vertex(x+140+s2,y+120+s3);
-    vertex(x+120+s5+s2,y+s6);
-    vertex(x+45-s5,y+s6);
+    vertex(x+170-40-d+s5+s2,y+s6);
+    vertex(x+40-s5,y+s6);
     vertex(x-d+30,y+120+s3);
-    vertex(x-d+30/2,y+120+s3);
-    vertex(x-d+30/2,y+120+s3+d);
+    vertex(x-d+15,y+120+s3);
+    vertex(x-d+15,y+120+s3+d);
     vertex(x,y+120+s3+d);
     vertex(x,y+centerY/1.5);
     vertex(x-d,y+centerY/1.5);
@@ -333,6 +342,8 @@ function mousePressed(){
   }
 
   function semotare(x,y){
+    stroke(1);
+    strokeWeight(1);
     beginShape();
     vertex(x,y);
     vertex(x+40+s,y);
@@ -389,14 +400,14 @@ function mousePressed(){
     vertex(x+s+40,s10+d);
     vertex(x+s+40-d,s10+d);
     vertex(x+s+40-d,y+130+d);
-    vertex(x+s+20,y+130+d);
-    vertex(x+s+20,y+130);
-    vertex(x+s+5,y+130);
+    vertex(x+s+40-15,y+130+d);
+    vertex(x+s+40-15,y+130);
+    vertex(x+s+40-30,y+130);
     vertex(x+s+s5/2,y+60-s3);
     vertex(x+40-s5/2,y+60-s3);
-    vertex(x+35,y+130);
-    vertex(x+20,y+130);
-    vertex(x+20,y+130+d);
+    vertex(x+30,y+130);
+    vertex(x+15,y+130);
+    vertex(x+15,y+130+d);
     vertex(x+d,y+130+d);
     vertex(x+d,s10+d);
     vertex(x,s10+d);
@@ -409,29 +420,31 @@ function mousePressed(){
   function ashi(x,y){
     beginShape();
    vertex(x,y);
-   vertex(x+10,y);
-   vertex(x+20+d,y+20+d-10);
-   vertex(x+20+d,y+20+d);
-   vertex(x+(20+d)/2,y+20+d);
-   vertex(x+(20+d)/2,y+20+d-d);
-   vertex(x+d,y+20+d-d);
-   vertex(x+d,y+(20+d)/2);
-   vertex(x,y+(20+d)/2);
+   vertex(x+15,y);
+   vertex(x+15,y-d);
+   vertex(x+30,y-d);
+   vertex(x+30,y-d+15);
+   vertex(x+30,y-d+15);
+   vertex(x-d+15,y+30);
+   vertex(x-d,y+30);
+   vertex(x-d,y+15);
+   vertex(x,y+15);
+   vertex(x,y);
 
+   endShape();
+   /*beginShape();
+   vertex(x,y);
+   vertex(x+15,y);
+   vertex(x+d+d+15,y+d+d+15-15);
+   vertex(x+d+d+15,y+d+d+15);
+   vertex(x+d+d,y+d+d+15);
+   vertex(x+d+d,y+d+15);
+   vertex(x+d,y+d+15);
+   vertex(x+d,y+15);
+   vertex(x,y+15);
+   vertex(x,y);
+   endShape();*/
     
-    /*vertex(x-d-20+(d+45-s5)/2,y);
-    vertex(x+15,y);
-    //vertex(x+25+d,y);
-    vertex(x+25+d,y+10+d);
-    vertex(x+25+d,y+25+d);
-    vertex(x-10+(d+45-s5)/2,y+25+d);
-    vertex(x-10+(d+45-s5)/2,y+25+d-d);
-    vertex(x-20+(d+45-s5)/2,y+25+d-d);
-    vertex(x-20+(d+45-s5)/2,y+(d+45-s5)/4);
-    vertex(x-d-20+(d+45-s5)/2,y+(d+45-s5)/4);
-    vertex(x-d-20+(d+45-s5)/2,y);*/
-    
-    endShape();
   }
 
   function calculateX(xp, yp, xp2, yp2, yp3,xp6, yp6, xp7, yp7, yp8) {
