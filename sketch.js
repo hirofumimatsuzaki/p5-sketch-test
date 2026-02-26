@@ -201,7 +201,7 @@ function draw() {
 
     let sliderS12 = document.getElementById('s12');
     let s12Value = parseFloat(sliderS12.value);
-    document.getElementById('display_s12').innerText = s12Value + " mm";
+    document.getElementById('display_s12').innerText = s12Value*2 + " mm";
 
 
     d=iValue;
