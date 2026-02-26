@@ -201,7 +201,7 @@ function draw() {
 
     let sliderS12 = document.getElementById('s12');
     let s12Value = parseFloat(sliderS12.value);
-    document.getElementById('display_s12').innerText = (s12Value*2) + " mm";
+    document.getElementById('display_s12').innerText = s12Value + " mm";
 
 
     d=iValue;
@@ -295,14 +295,14 @@ function mousePressed(){
     vertex(x+170+s2-d,y+centerY/1.5);
     vertex(x+170+s2,y+centerY/1.5);
     vertex(x+170+s2,y+120+s3+d);
-    vertex(x+170+s2-s12,y+120+s3+d);
+    vertex(x+170+s2-s12/2,y+120+s3+d);
+    vertex(x+170+s2-s12/2,y+120+s3);
     vertex(x+170+s2-s12,y+120+s3);
-    vertex(x+170+s2-s12*2,y+120+s3);
     vertex(x+170-40-d+s5+s2,y+s6);
     vertex(x+40-s5,y+s6);
-    vertex(x-d+s12*2,y+120+s3);
     vertex(x-d+s12,y+120+s3);
-    vertex(x-d+s12,y+120+s3+d);
+    vertex(x-d+s12/2,y+120+s3);
+    vertex(x-d+s12/2,y+120+s3+d);
     vertex(x,y+120+s3+d);
     vertex(x,y+centerY/1.5);
     vertex(x-d,y+centerY/1.5);
@@ -372,14 +372,14 @@ function mousePressed(){
     vertex(x+s+20-d,s10+d);
     vertex(x+s+20,s10+d);
     vertex(x+s+20,y+130+d);
-    vertex(x+s+20-s12,y+130+d);
+    vertex(x+s+20-s12/2,y+130+d);
+    vertex(x+s+20-s12/2,y+130);
     vertex(x+s+20-s12,y+130);
-    vertex(x+s+20-s12*2,y+130);
     vertex(x+s-20+s5/2,y+60-s3);
     vertex(x+20-s5/2,y+60-s3);
-    vertex(x-20+s12*2,y+130);
     vertex(x-20+s12,y+130);
-    vertex(x-20+s12,y+130+d);
+    vertex(x-20+s12/2,y+130);
+    vertex(x-20+s12/2,y+130+d);
     vertex(x-20,y+130+d);
     vertex(x-20,s10+d);
     vertex(x-20+d,s10+d);
@@ -400,14 +400,14 @@ function mousePressed(){
     vertex(x+s+40,s10+d);
     vertex(x+s+40-d,s10+d);
     vertex(x+s+40-d,y+130+d);
-    vertex(x+s+40-s12,y+130+d);
+    vertex(x+s+40-s12/2,y+130+d);
+    vertex(x+s+40-s12/2,y+130);
     vertex(x+s+40-s12,y+130);
-    vertex(x+s+40-s12*2,y+130);
     vertex(x+s+s5/2,y+60-s3);
     vertex(x+40-s5/2,y+60-s3);
-    vertex(x+s12*2,y+130);
     vertex(x+s12,y+130);
-    vertex(x+s12,y+130+d);
+    vertex(x+s12/2,y+130);
+    vertex(x+s12/2,y+130+d);
     vertex(x+d,y+130+d);
     vertex(x+d,s10+d);
     vertex(x,s10+d);
@@ -420,14 +420,14 @@ function mousePressed(){
   function ashi(x,y){
     beginShape();
    vertex(x,y);
-   vertex(x+s12,y);
+   vertex(x+s12/2,y);
+   vertex(x+s12/2,y-d);
    vertex(x+s12,y-d);
-   vertex(x+s12*2,y-d);
-   vertex(x+s12*2,y-d+s12);
-   vertex(x+s12*2,y-d+s12);
-   vertex(x+s12-d,y+s12*2);
-   vertex(x-d,y+s12*2);
+   vertex(x+s12,y-d+s12/2);
+   vertex(x+s12,y-d+s12/2);
+   vertex(x+s12/2-d,y+s12);
    vertex(x-d,y+s12);
+   vertex(x-d,y+s12/2);
    vertex(x,y+s12);
    vertex(x,y);
 
