@@ -14,7 +14,7 @@ let s8=-80;
 let s9;
 let s10;
 let s11=0;
-let s12=15;
+let s12=30;
 //let sc=0;
 let test=0;//test
 let offsetX;
@@ -223,11 +223,15 @@ function draw() {
     noStroke();
 
     sokumen(30,200);
+    sokumen(30,1200);
     ue(230+s2,100);
     semotare(330+s2+s,100);
     mae(450+s2+s*2,200+s3);
     ushiro(500+s2+s*3,200+s3);
     ashi(300+s2,50);
+    ashi(350+s2,50);
+    ashi(400+s2,50);
+    ashi(450+s2,50);
     // スライダーの値(sValue)を円の直径として使用
     // マウス位置を中心に描画
     //ellipse(width / 2, height / 2, sValue, sValue); 
