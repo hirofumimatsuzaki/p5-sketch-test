@@ -33,6 +33,7 @@ html, body {
 /* 右カラム（キャンバス） */
 .right-column {
     flex-grow: 1; /* 残りの幅を全部使う */
+    overflow: auto;
     background-color: #ddd;
     display: flex;
     justify-content: center;
