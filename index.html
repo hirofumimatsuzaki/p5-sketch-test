@@ -19,10 +19,11 @@
                 <div class="control-group">
                     <label for="furniture_type">家具の種類</label>
                     <select id="furniture_type">
-                        <option value="chair">椅子 (カスタム)</option>
-                        <option value="desk">机 (簡略)</option>
-                        <option value="shelf">棚 (簡略)</option>
-                        <option value="house">小屋 (簡略)</option>
+                        <option value="chair">椅子 </option>
+                        <option value="desk">机 </option>
+                        <option value="shelf">棚 </option>
+                        <option value="stool">スツール</option>
+                        <option value="house">小屋 (未実装)</option>
                     </select>
                 </div>
 
@@ -149,32 +150,32 @@
     <h3>棚のカスタムパラメータ</h3>
 
     <div class="control-group">
-        <label for="shelf_thickness">厚み</label>
-        <input type="range" id="shelf_thickness" value="12" min="12" max="120">
-        <span id="display_shelf_thickness">12 mm</span>
-    </div>
-
-    <div class="control-group">
         <label for="shelf_width">横幅</label>
-        <input type="range" id="shelf_width" value="650" min="650" max="16000">
+        <input type="range" id="shelf_width" value="650" min="65" max="16000">
         <span id="display_shelf_width">650 mm</span>
     </div>
 
     <div class="control-group">
         <label for="shelf_depth">奥行き</label>
-        <input type="range" id="shelf_depth" value="400" min="400" max="12000">
+        <input type="range" id="shelf_depth" value="400" min="40" max="12000">
         <span id="display_shelf_depth">400 mm</span>
     </div>
 
     <div class="control-group">
+        <label for="shelf_height_body">縦</label>
+        <input type="range" id="shelf_height_body" value="1260" min="126" max="1600">
+        <span id="display_shelf_height_body">1260 mm</span>
+    </div>
+
+    <div class="control-group">
         <label for="shelf_foot_width">足幅</label>
-        <input type="range" id="shelf_foot_width" value="50" min="50" max="1000">
+        <input type="range" id="shelf_foot_width" value="50" min="5" max="1000">
         <span id="display_shelf_foot_width">50 mm</span>
     </div>
 
     <div class="control-group">
         <label for="shelf_leg_width">足幅2</label>
-        <input type="range" id="shelf_leg_width" value="80" min="80" max="2000">
+        <input type="range" id="shelf_leg_width" value="80" min="8" max="2000">
         <span id="display_shelf_leg_width">80 mm</span>
     </div>
 
@@ -185,17 +186,23 @@
     </div>
 
     <div class="control-group">
+        <label for="shelf_leg_height_2">足高さ2</label>
+        <input type="range" id="shelf_leg_height_2" value="-410" min="-1000" max="1000">
+        <span id="display_shelf_leg_height_2">-410 mm</span>
+    </div>
+
+    <div class="control-group">
         <label for="shelf_joint_thickness">厚み2</label>
-        <input type="range" id="shelf_joint_thickness" value="60" min="60" max="1000">
+        <input type="range" id="shelf_joint_thickness" value="60" min="6" max="1000">
         <span id="display_shelf_joint_thickness">60 mm</span>
     </div>
 
     <div class="control-group">
-        <label for="shelf_leg_height_2">足高さ2</label>
-        <input type="range" id="shelf_leg_height_2" value="-410" min="-10000" max="10000">
-        <span id="display_shelf_leg_height_2">-410 mm</span>
+        <label for="shelf_joint_thickness_2">厚み3</label>
+        <input type="range" id="shelf_joint_thickness_2" value="331" min="33" max="1000">
+        <span id="display_shelf_joint_thickness_2">331 mm</span>
     </div>
-
+    
     <div class="control-group">
         <label for="shelf_columns">棚横</label>
         <input type="range" id="shelf_columns" value="4" min="1" max="8" step="1">
@@ -207,17 +214,21 @@
         <input type="range" id="shelf_rows" value="4" min="1" max="8" step="1">
         <span id="display_shelf_rows">4</span>
     </div>
+</div>
+
+<div class="control-section" id="stool-controls" style="display:none;">
+    <h3>スツールのカスタムパラメータ</h3>
 
     <div class="control-group">
-        <label for="shelf_joint_thickness_2">厚み3</label>
-        <input type="range" id="shelf_joint_thickness_2" value="331" min="331" max="1000">
-        <span id="display_shelf_joint_thickness_2">331 mm</span>
+        <label for="stool_height_adjust">椅子高さ調整</label>
+        <input type="range" id="stool_height_adjust" value="0" min="-50" max="300" step="1">
+        <span id="display_stool_height_adjust">0 mm</span>
     </div>
 
     <div class="control-group">
-        <label for="shelf_height_body">縦</label>
-        <input type="range" id="shelf_height_body" value="1260" min="1260" max="16000">
-        <span id="display_shelf_height_body">1260 mm</span>
+        <label for="stool_seat_unit">座面サイズ基準</label>
+        <input type="range" id="stool_seat_unit" value="10" min="5" max="35" step="1">
+        <span id="display_stool_seat_unit">10</span>
     </div>
 </div>
             
